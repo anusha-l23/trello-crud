@@ -1,0 +1,13 @@
+.App {
+  background: #0083A3;
+  height: 100vh;
+}
+
+.Header {
+  background: #005063;
+  color: white;
+  padding: 5px 0;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+}
