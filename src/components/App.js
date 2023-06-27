@@ -2,7 +2,7 @@ import "../styles/App.css";
 
 import React, { Component } from "react";
 import Board from "./Board";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 class App extends Component {
   render() {
     return (
@@ -10,7 +10,8 @@ class App extends Component {
         <div className="Header">React Trello App</div>
 <BrowserRouter>
 <Routes>
-  <Route path="/" element={<Board />} exact />
+  <Route index path="/" element={<Board />} exact />
+  <Route path="*" element={<Navigate to="/" />} />
 </Routes>
 </BrowserRouter>
       </div>
