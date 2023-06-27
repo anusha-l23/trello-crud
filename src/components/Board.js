@@ -9,7 +9,7 @@ import AddList from "./AddList";
 
 class Board extends Component {
   state = {
-    addingList: false
+    addingList: false,
   };
 
   toggleAddingList = () =>
@@ -29,8 +29,8 @@ class Board extends Component {
           type: "MOVE_LIST",
           payload: {
             oldListIndex: source.index,
-            newListIndex: destination.index
-          }
+            newListIndex: destination.index,
+          },
         });
       }
       return;
@@ -47,8 +47,8 @@ class Board extends Component {
           sourceListId: source.droppableId,
           destListId: destination.droppableId,
           oldCardIndex: source.index,
-          newCardIndex: destination.index
-        }
+          newCardIndex: destination.index,
+        },
       });
     }
   };
@@ -76,9 +76,24 @@ class Board extends Component {
                     onClick={this.toggleAddingList}
                     className="Add-List-Button"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" strokeLinecap="square" strokeLinejoin="round" strokeWidth="32" d="M256 112v288m144-144H112"></path></svg> Add another list
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 512 512"
+                    >
+                      <path
+                        fill="none"
+                        stroke="currentColor"
+                        strokeLinecap="square"
+                        strokeLinejoin="round"
+                        strokeWidth="32"
+                        d="M256 112v288m144-144H112"
+                      ></path>
+                    </svg>{" "}
+                    Add another list
                   </div>
-                )} 
+                )}
               </div>
             </div>
           )}
@@ -88,6 +103,6 @@ class Board extends Component {
   }
 }
 
-const mapStateToProps = state => ({ board: state.board });
+const mapStateToProps = (state) => ({ board: state.board });
 
 export default connect(mapStateToProps)(Board);

@@ -135,36 +135,36 @@ const reducers = combineReducers({
   cardsById
 });
 
-// const saveState = state => {
-//   try {
-//     const serializedState = JSON.stringify(state);
-//     localStorage.setItem("state", serializedState);
-//   } catch {
-//     // ignore write errors
-//   }
-// };
+const saveState = state => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem("state", serializedState);
+  } catch {
+    // ignore write errors
+  }
+};
 
 
-// const loadState = () => {
-//   try {
-//     const serializedState = localStorage.getItem("state");
-//     if (serializedState === null) {
-//       return undefined;
-//     }
-//     return JSON.parse(serializedState);
-//   } catch (err) {
-//     return undefined;
-//   }
-// };
+const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem("state");
+    if (serializedState === null) {
+      return undefined;
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return undefined;
+  }
+};
 
-// const persistedState = loadState();
-const store = createStore(reducers);
+const persistedState = loadState();
+const store = createStore(reducers, persistedState);
 
-// store.subscribe(
-//   throttle(() => {
-//     saveState(store.getState());
-//   }, 1000)
-// );
+store.subscribe(
+  throttle(() => {
+    saveState(store.getState());
+  }, 1000)
+);
 
 // console.log(store.getState());
 // if (!store.getState().board.lists.length) {
