@@ -168,7 +168,32 @@ class List extends Component {
                         <li onClick={this.toggleAddingCard}>Add card...</li>
                         <li>Copt list...</li>
                         <li>Move list...</li>
+                        <li>Watch</li>
+                     
+                        </ul>
+<hr></hr>
+                    <ul className="lists__menu-dropdown__options">
+                      <li>
+                      Sort by...
+                      </li>
                       </ul>
+                      <hr></hr>
+                      <ul className="lists__menu-dropdown__options">
+                        <li>Automation</li>
+                        <li>When a card is added to the list</li>
+                        <li>Every day, sort list by…</li>
+                        <li>Every Monday, sort list by…</li>
+<li>Create a rule</li>
+</ul>
+<hr></hr>
+                    <ul className="lists__menu-dropdown__options">
+<li>Move all cards in this list…</li>
+<li>Archive all cards in this list…</li>
+</ul>
+<hr></hr>
+                    <ul className="lists__menu-dropdown__options">
+<li>Archive this list</li>
+                        </ul>
                     </div>
                   )}
                 </div>
