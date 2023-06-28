@@ -39,8 +39,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
+
 .Add-Card-icon{
   margin-right: 10px;
   color: #6b808c;
@@ -48,4 +48,82 @@
 .dots-color{
   margin-right: 10px;
   color: #6b808c;
+}
+.lists__menu-btn {
+  font-size: 1rem;
+  padding: 4px 0px 4px 8px;
+  margin-right:2px;
+  border:none;
+  background: #dfe3e6;
+}
+
+.lists__menu-btn:hover {
+  background-color: #b2bec4;
+}
+
+.lists__menu-dropdown {
+  position: absolute;
+  top: 95%;
+  left: 40%;
+  width: 15rem;
+  z-index: 2;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  border-radius: 3px;
+  border-color: #e3e3e7;
+}
+
+.lists__menu-dropdown1 {
+  position: absolute;
+  top: 35%;
+  left: 30%;
+  width: 15rem;
+  z-index: 2;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  border-radius: 3px;
+  border-color: #e3e3e7;
+}
+
+.lists__menu-title {
+  color: #5E6C84;
+  text-align: center;
+  padding: 5px;
+}
+
+.lists__menu-title > hr {
+  border: none;
+  border-bottom: 1px solid #e3e3e7;
+  margin-top: 5px;
+}
+
+.lists__menu-dropdown__options {
+  list-style: none;
+  color: #5E6C84;
+}
+
+.lists__menu-dropdown__options > li {
+  padding: 3px;
+}
+
+.lists__menu-dropdown__options > li:hover {
+  cursor: pointer;
+  background-color: #e3e3e7;
+}
+.lists__menu {
+  position: relative;
+  
+}
+
+.Edit-Button-Cancel:hover{
+  color: #5E6C84;
+}
+.btn{
+  width:full;
+  background-color: #0083A3;
+  margin:1em;
+  padding:0.5em;
+  color:white;
+  border-radius: 3px;
+  
 }

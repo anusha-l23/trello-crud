@@ -1,5 +1,5 @@
 import "../styles/List.css";
-import React, { Component } from "react";
+import React, { Component, useRef } from "react";
 import { connect } from "react-redux";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 //import { getAllCards } from "../api/cards";
@@ -14,16 +14,35 @@ class List extends Component {
     title: this.props.list.title,
     addingCard: false,
     cards: [],
-    card: ""
+    card: "",
+    toggleMenu: false,
+    toggleMove: false,
+    toggleCard: false,
+    toggleCardTemp: false,
   };
 
   toggleAddingCard = () =>
     this.setState({ addingCard: !this.state.addingCard });
 
+  toggleCardTemp = () =>
+    this.setState({ toggleCardTemp: !this.state.toggleCardTemp });
+
   addCard = async (cardText) => {
     const { listId, dispatch } = this.props;
 
     this.toggleAddingCard();
+
+    const cardId = shortid.generate();
+
+    dispatch({
+      type: "ADD_CARD",
+      payload: { cardText, cardId, listId },
+    });
+  };
+  addCardTemp = async (cardText) => {
+    const { listId, dispatch } = this.props;
+
+    this.toggleCardTemp();
 
     const cardId = shortid.generate();
 
@@ -59,35 +78,40 @@ class List extends Component {
     });
   };
 
-//   async componentDidMount() {
-//     //const {cards} = this.list.cards;
+  //   async componentDidMount() {
+  //     //const {cards} = this.list.cards;
 
-// await getAllCards()
-//       .then((res) => {
-// console.log(res.data);
-// this.setState({cards: res.data})
+  // await getAllCards()
+  //       .then((res) => {
+  // console.log(res.data);
+  // this.setState({cards: res.data})
 
-//       })
-//       .catch((error) => console.log(error));
-//   }
+  //       })
+  //       .catch((error) => console.log(error));
+  //   }
 
+  //   handleAdd = async () => {
+  //     //const {cards} = this.list.cards;
 
-  
-//   handleAdd = async () => {
-//     //const {cards} = this.list.cards;
-
-// await addCard(this.card)
-//       .then((res) => {
-//         this.setState({card: this.state.card})
-//       })
-//       .catch((error) => console.log(error));
-//   }
+  // await addCard(this.card)
+  //       .then((res) => {
+  //         this.setState({card: this.state.card})
+  //       })
+  //       .catch((error) => console.log(error));
+  //   }
 
   render() {
     const { list, index } = this.props;
 
-    const { editingTitle, addingCard, title } = this.state;
-console.log(this.state.cards, "state");
+    const {
+      editingTitle,
+      addingCard,
+      title,
+      toggleMove,
+      toggleMenu,
+      toggleCard,
+    } = this.state;
+    console.log(this.state.cards, "state");
     return (
       <Draggable draggableId={list._id} index={index}>
         {(provided, snapshot) => (
@@ -107,12 +131,46 @@ console.log(this.state.cards, "state");
                 deleteList={this.deleteList}
               />
             ) : (
-              <div className="flex">
-                <div className="List-Title" onClick={this.toggleEditingTitle}>
-                  {list.title}
-                </div>
-                <div>
-                <svg className="dots-color" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 14a2 2 0 1 0 0-4a2 2 0 0 0 0 4zm-6 0a2 2 0 1 0 0-4a2 2 0 0 0 0 4zm12 0a2 2 0 1 0 0-4a2 2 0 0 0 0 4z"></path></svg>
+              <div className="lists__menu">
+                <div className="flex">
+                  <div className="List-Title" onClick={this.toggleEditingTitle}>
+                    {list.title}
+                  </div>
+                  <button
+                    className="lists__menu-btn"
+                    onClick={() =>
+                      toggleMove
+                        ? this.setState({ toggleMove: !this.state.toggleMove })
+                        : this.setState({ toggleMenu: !this.state.toggleMenu })
+                    }
+                  >
+                    <i className="fa fa-ellipsis-h dots-color"></i>
+                  </button>
+                  {toggleMenu && (
+                    <div className="lists__menu-dropdown">
+                      <div className="lists__menu-title">
+                        <div className="flex">
+                          <p style={{ marginLeft: "4rem" }}>List actions</p>
+                          <div
+                            tabIndex="0"
+                            onClick={() => {
+                              this.setState({
+                                toggleMenu: !this.state.toggleMenu,
+                              });
+                            }}
+                          >
+                            <i className="fa fa-close"></i>
+                          </div>
+                        </div>
+                        <hr></hr>
+                      </div>
+                      <ul className="lists__menu-dropdown__options">
+                        <li onClick={this.toggleAddingCard}>Add card...</li>
+                        <li>Copt list...</li>
+                        <li>Move list...</li>
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -121,7 +179,6 @@ console.log(this.state.cards, "state");
               {(provided, _snapshot) => (
                 <div ref={provided.innerRef} className="Lists-Cards">
                   {list.cards &&
-                  
                     list.cards.map((cardId, index) => (
                       <Card
                         key={cardId}
@@ -129,7 +186,6 @@ console.log(this.state.cards, "state");
                         index={index}
                         listId={list._id}
                       />
-                      
                     ))}
 
                   {provided.placeholder}
@@ -141,27 +197,89 @@ console.log(this.state.cards, "state");
                       adding
                     />
                   ) : (
-                    <div className="flex">
-                      <div
-                        className="Toggle-Add-Card"
-                        onClick={this.toggleAddingCard}
-                      >
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" strokeLinecap="square" strokeLinejoin="round" strokeWidth="32" d="M256 112v288m144-144H112"></path></svg> Add a card
-                      </div>
-                      <div className="Add-Card-icon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="1em"
-                          height="1em"
-                          viewBox="0 0 24 24"
+                    <div className="lists__menu">
+                      <div className="flex">
+                        <div
+                          className="Toggle-Add-Card"
+                          onClick={this.toggleAddingCard}
                         >
-                          <path
-                            fill="currentColor"
-                            d="M5 2h16v12h-2V4H5v16h8v2H3V2h2zm2 4h10v2H7V6zm10 4H7v2h10v-2zM7 14h7v2H7v-2zm13 5h3v2h-3v3h-2v-3h-3v-2h3v-3h2v3z"
-                          ></path>
-                        </svg>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="1em"
+                            height="1em"
+                            viewBox="0 0 512 512"
+                          >
+                            <path
+                              fill="none"
+                              stroke="currentColor"
+                              strokeLinecap="square"
+                              strokeLinejoin="round"
+                              strokeWidth="32"
+                              d="M256 112v288m144-144H112"
+                            ></path>
+                          </svg>{" "}
+                          Add a card
+                        </div>
+                        <button
+                          className="lists__menu-btn dots-color"
+                          onClick={() =>
+                            toggleMove
+                              ? this.setState({
+                                  toggleMove: !this.state.toggleMove,
+                                })
+                              : this.setState({
+                                  toggleCard: !this.state.toggleCard,
+                                })
+                          }
+                        >
+                          <svg
+                            style={{ marginRight: "5px" }}
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="1em"
+                            height="1em"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              fill="currentColor"
+                              d="M5 2h16v12h-2V4H5v16h8v2H3V2h2zm2 4h10v2H7V6zm10 4H7v2h10v-2zM7 14h7v2H7v-2zm13 5h3v2h-3v3h-2v-3h-3v-2h3v-3h2v3z"
+                            ></path>
+                          </svg>
+                        </button>
+                        {toggleCard && (
+                          <div className="lists__menu-dropdown1">
+                            <div className="lists__menu-title">
+                              <div className="flex">
+                                <p style={{ marginLeft: "4rem" }}>
+                                  Card templates
+                                </p>
+                                <div
+                                  tabIndex="0"
+                                  onClick={() => {
+                                    this.setState({
+                                      toggleCard: !this.state.toggleCard,
+                                    });
+                                  }}
+                                >
+                                  <i className="fa fa-close"></i>
+                                </div>
+                              </div>
+                              <hr></hr>
+                            </div>
+                            <div className="lists__menu-dropdown__options">
+                              <div style={{ textAlign: "center" }}>
+                                You don’t have any templates. Create a template
+                                to make copying cards easy.
+                              </div>
+
+                              <div
+                                onClick={this.toggleAddingCard}
+                                className="btn"
+                              >
+                                Create a new template
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}

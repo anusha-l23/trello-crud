@@ -23,7 +23,7 @@ const EditButtons = ({ handleSave, saveLabel, handleDelete, handleCancel }) => (
       </div>
     )}
     <div tabIndex="0" className="Edit-Button-Cancel" onClick={handleCancel}>
-      <ion-icon name="close" />
+   <i className="fa fa-close"></i>
     </div>
   </div>
 );
