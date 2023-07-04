@@ -67,7 +67,7 @@
   left: 40%;
   width: 15rem;
   z-index: 2;
-  border: 1px solid #000000;
+  border: 1px solid gray;
   background-color: #ffffff;
   border-radius: 3px;
   border-color: #e3e3e7;
@@ -79,7 +79,7 @@
   left: 30%;
   width: 15rem;
   z-index: 2;
-  border: 1px solid #000000;
+  border: 1px solid gray;
   background-color: #ffffff;
   border-radius: 3px;
   border-color: #e3e3e7;
@@ -112,13 +112,12 @@
 }
 .lists__menu {
   position: relative;
-  
 }
 
 .Edit-Button-Cancel:hover{
   color: #5E6C84;
 }
-.btn{
+.btn1{
   width:full;
   background-color: #0083A3;
   margin:1em;
@@ -127,3 +126,4 @@
   border-radius: 3px;
   
 }
+

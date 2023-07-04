@@ -222,7 +222,7 @@ class List extends Component {
                       adding
                     />
                   ) : (
-                    <div className="lists__menu">
+                    <div className="">
                       <div className="flex">
                         <div
                           className="Toggle-Add-Card"
@@ -292,13 +292,13 @@ class List extends Component {
                             </div>
                             <div className="lists__menu-dropdown__options">
                               <div style={{ textAlign: "center" }}>
-                                You don’t have any templates. Create a template
+                                You don't have any templates. Create a template
                                 to make copying cards easy.
                               </div>
 
                               <div
                                 onClick={this.toggleAddingCard}
-                                className="btn"
+                                className="btn1"
                               >
                                 Create a new template
                               </div>
