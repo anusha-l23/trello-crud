@@ -49,6 +49,11 @@
   margin-right: 10px;
   color: #6b808c;
 }
+.dots-color1{
+  margin-right: 10px;
+  color: #6b808c;
+  background-color: white;
+}
 .lists__menu-btn {
   font-size: 1rem;
   padding: 4px 0px 4px 8px;
@@ -57,6 +62,14 @@
   background: #dfe3e6;
 }
 
+.lists__menu-btn1 {
+  font-size: 1rem;
+  padding: 4px 0px 4px 8px;
+  margin-right:2px;
+  border:none;
+  background: white;
+  color:gray;
+}
 .lists__menu-btn:hover {
   background-color: #b2bec4;
 }

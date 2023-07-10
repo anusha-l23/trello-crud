@@ -137,14 +137,25 @@ class List extends Component {
                     {list.title}
                   </div>
                   <button
-                    className="lists__menu-btn"
+                    className="lists__menu-btn dots-color"
+                    style={{backgroundColor:"#dfe3e6"}}
                     onClick={() =>
                       toggleMove
                         ? this.setState({ toggleMove: !this.state.toggleMove })
                         : this.setState({ toggleMenu: !this.state.toggleMenu })
                     }
                   >
-                    <i className="fa fa-ellipsis-h dots-color"></i>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M16 12a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2m-6 0a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2m-6 0a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2Z"
+                      ></path>
+                    </svg>
                   </button>
                   {toggleMenu && (
                     <div className="lists__menu-dropdown">
@@ -169,13 +180,10 @@ class List extends Component {
                         <li>Copt list...</li>
                         <li>Move list...</li>
                         <li>Watch</li>
-                     
-                        </ul>
-<hr></hr>
-                    <ul className="lists__menu-dropdown__options">
-                      <li>
-                      Sort by...
-                      </li>
+                      </ul>
+                      <hr></hr>
+                      <ul className="lists__menu-dropdown__options">
+                        <li>Sort by...</li>
                       </ul>
                       <hr></hr>
                       <ul className="lists__menu-dropdown__options">
@@ -183,17 +191,17 @@ class List extends Component {
                         <li>When a card is added to the list</li>
                         <li>Every day, sort list by…</li>
                         <li>Every Monday, sort list by…</li>
-<li>Create a rule</li>
-</ul>
-<hr></hr>
-                    <ul className="lists__menu-dropdown__options">
-<li>Move all cards in this list…</li>
-<li>Archive all cards in this list…</li>
-</ul>
-<hr></hr>
-                    <ul className="lists__menu-dropdown__options">
-<li>Archive this list</li>
-                        </ul>
+                        <li>Create a rule</li>
+                      </ul>
+                      <hr></hr>
+                      <ul className="lists__menu-dropdown__options">
+                        <li>Move all cards in this list…</li>
+                        <li>Archive all cards in this list…</li>
+                      </ul>
+                      <hr></hr>
+                      <ul className="lists__menu-dropdown__options">
+                        <li>Archive this list</li>
+                      </ul>
                     </div>
                   )}
                 </div>

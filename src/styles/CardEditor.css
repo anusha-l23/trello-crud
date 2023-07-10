@@ -91,17 +91,7 @@
    padding: 1em;
 
 }
-.lists__menu-dropdown2 {
-  position: absolute;
-  top: 35%;
-  left: 30%;
-  width: 23rem;
-  z-index: 2;
-  border: 1px solid #c4c4ff;
-  background-color: #ffffff;
-  border-radius: 3px;
-  border-color: #e3e3e7;
-}
+
 .profilename{
 
   background-color: #0083A3;
@@ -303,4 +293,15 @@ border-radius: 4px;
   margin-top: 15px;
   position: absolute;
   width: 2px;
+}
+.lists__menu-dropdown2 {
+  position: absolute;
+  top: 1.2rem;
+  left: 15rem;
+  width: 24rem;
+  z-index: 2;
+  border: 1px solid gray;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border-color: #e3e3e7;
 }

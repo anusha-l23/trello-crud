@@ -22,6 +22,7 @@ class CardEditor extends Component {
     kudos: false,
     openModalPoll: false,
     openModalDraw: false,
+    isHover6: false
   };
 
   toggleKudos = () => {
@@ -52,32 +53,6 @@ class CardEditor extends Component {
     this.setState({ action: false });
   };
 
-  updateInput(e) {
-    this.setState({
-      userInput: e.target.value,
-    });
-  }
-  addItem() {
-    if (this.state.userInput !== "") {
-      const userInput = {
-        // Add a random id which is used to delete
-        id: Math.random(),
-
-        // Add a user value to list
-        value: this.state.userInput,
-      };
-
-      // Update list
-      const list = [...this.state.list];
-      list.push(userInput);
-
-      // reset state
-      this.setState({
-        list,
-        userInput: "",
-      });
-    }
-  }
 
   onClickButton = (e) => {
     e.preventDefault();
@@ -677,12 +652,14 @@ class CardEditor extends Component {
             </div>
           )}
         </div>
+ 
         <EditButtons
           handleSave={() => onSave(text)}
           saveLabel={adding ? "Add card" : "Save"}
           handleDelete={onDelete}
           handleCancel={onCancel}
         />
+      
       </div>
     );
   }
