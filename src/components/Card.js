@@ -5,10 +5,10 @@ import { connect } from "react-redux";
 import { Modal } from "react-responsive-modal";
 import { Draggable } from "react-beautiful-dnd";
 import CardEditor from "./CardEditor";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import {
-  Dropdown,
+  //Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
@@ -100,10 +100,10 @@ class Card extends Component {
   }
 
   render() {
-    const { card, index, cardId, toggleMove } = this.props;
+    const { card, index, toggleMove } = this.props;
     console.log(card, "card data");
 
-    const { editing, text, hoverThumb, hoverThumb1 } = this.state;
+    const { editing, hoverThumb, hoverThumb1 } = this.state;
 
     if (!editing && card) {
       return (

@@ -1,5 +1,5 @@
 import "../styles/List.css";
-import React, { Component, useRef } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 //import { getAllCards } from "../api/cards";

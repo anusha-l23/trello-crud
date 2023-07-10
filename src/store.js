@@ -1,6 +1,6 @@
 import { combineReducers, createStore } from "redux";
 import throttle from "lodash.throttle";
-import seed from "./seed";
+//import seed from "./seed";
 
 const board = (state = { lists: [] }, action) => {
   switch (action.type) {

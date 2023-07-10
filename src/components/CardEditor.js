@@ -134,7 +134,6 @@ class CardEditor extends Component {
       isHover3,
       isHover4,
       isHover5,
-      value,
       action,
     } = this.state;
     const {
@@ -143,10 +142,9 @@ class CardEditor extends Component {
       onDelete,
       adding,
       startEditing,
-      editing,
-      card,
-      editCard,
-      gif,
+      //card,
+      //editCard,
+      //gif,
       toggleMove,
     } = this.props;
 
