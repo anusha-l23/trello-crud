@@ -90,9 +90,6 @@ class CardEditor extends Component {
     }
   };
 
-  handleMouseLeave1 = () => {
-    this.setState({ isHover1: false });
-  };
   handleMouseEnter1 = () => {
     this.setState({ isHover1: true });
   };
@@ -241,7 +238,7 @@ class CardEditor extends Component {
                 src={giphy}
                 width="50%"
                 className="center"
-                alt="giphy image"
+                alt=""
               />
               <div className="flex">
                 <input
@@ -415,7 +412,7 @@ class CardEditor extends Component {
                       <img
                         className="img-main center"
                         src="https://www.aclu-ia.org/sites/default/files/styles/featured_image_580x386/public/field_image/woman_voting_1.jpg?itok=zQrrA5KG"
-                        alt="Rate your Sprint"
+                        alt=""
                       />
                       <p className="text-center">Rate your Sprint</p>
 
@@ -428,7 +425,7 @@ class CardEditor extends Component {
                       <img
                         className="img-main center"
                         src="https://www.aclu-ia.org/sites/default/files/styles/featured_image_580x386/public/field_image/woman_voting_1.jpg?itok=zQrrA5KG"
-                        alt="Pick a Picture"
+                        alt=""
                       />
                       <p className="text-center">Pick a Picture</p>
 
