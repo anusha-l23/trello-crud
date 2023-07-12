@@ -180,7 +180,7 @@ class List extends Component {
                       </div>
                       <ul className="lists__menu-dropdown__options">
                         <li onClick={this.toggleAddingCard}>Add card...</li>
-                        <li>Copt list...</li>
+                        <li>copy list...</li>
                         <li>Move list...</li>
                         <li>Watch</li>
                       </ul>

@@ -616,7 +616,6 @@ class CardEditor extends Component {
                           }}
                         >
                           {item.value}
-                          <span></span>
                         </div>
                       </div>
                     );
