@@ -7,8 +7,6 @@ import Card from "./Card";
 import CardEditor from "./CardEditor";
 import ListEditor from "./ListEditor";
 import shortid from "shortid";
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
 class List extends Component {
@@ -23,11 +21,7 @@ class List extends Component {
     toggleCard: false,
     toggleCardTemp: false,
   };
-  showToastMessage = () => {
-    toast.success('Success Notification !', {
-        position: toast.POSITION.TOP_RIGHT
-    });
-};
+
   toggleAddingCard = () =>
     this.setState({ addingCard: !this.state.addingCard });
 
