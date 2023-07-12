@@ -7,6 +7,9 @@ import Card from "./Card";
 import CardEditor from "./CardEditor";
 import ListEditor from "./ListEditor";
 import shortid from "shortid";
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 class List extends Component {
   state = {
@@ -20,7 +23,11 @@ class List extends Component {
     toggleCard: false,
     toggleCardTemp: false,
   };
-
+  showToastMessage = () => {
+    toast.success('Success Notification !', {
+        position: toast.POSITION.TOP_RIGHT
+    });
+};
   toggleAddingCard = () =>
     this.setState({ addingCard: !this.state.addingCard });
 
@@ -38,7 +45,9 @@ class List extends Component {
       type: "ADD_CARD",
       payload: { cardText, cardId, listId },
     });
-  };
+    alert("Are you sure want to add card");
+  }
+
   addCardTemp = async (cardText) => {
     const { listId, dispatch } = this.props;
 
@@ -230,7 +239,7 @@ class List extends Component {
                       adding
                     />
                   ) : (
-                    <div className="">
+                    <div className="lists__menu">
                       <div className="flex">
                         <div
                           className="Toggle-Add-Card"

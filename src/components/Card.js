@@ -27,14 +27,21 @@ class Card extends Component {
     thumb: false,
     thumbDown: false,
     hoverThumb: false,
-    hoverThumb1: false
+    hoverThumb1: false,
+    hoverName: false
   };
 
 
   toggleCardMenu = () => {
     document.addEventListener("click", this.toggleCardMenu);
   };
+  handleMouseEnter = () => {
+    this.setState({ hoverName: true });
+  };
 
+  handleMouseLeave = () => {
+    this.setState({ hoverName: false });
+  };
   startEditing = () =>
     this.setState({
       editing: true,
@@ -61,6 +68,7 @@ class Card extends Component {
       type: "CHANGE_CARD_TEXT",
       payload: { cardId: card?._id, cardText: text },
     });
+    alert("Are you sure want to edit card");
   };
 
   deleteCard = async () => {
@@ -70,6 +78,7 @@ class Card extends Component {
       type: "DELETE_CARD",
       payload: { cardId: card._id, listId },
     });
+    alert("Are you sure want to delete card");
   };
 
   updateInput(e) {
@@ -184,7 +193,12 @@ class Card extends Component {
                   <div>
                     {this.state.thumb ? (
                       <>
+                      {this.state.hoverName &&
+                       <p className="lists__menu_thumb">anusha L.</p> 
+                      }
                         <svg
+                        onMouseEnter={this.handleMouseEnter}
+                        onMouseLeave={this.handleMouseLeave}
                           xmlns="http://www.w3.org/2000/svg"
                           width="1em"
                           height="1em"
@@ -198,10 +212,11 @@ class Card extends Component {
                           ></path>
                         </svg>{" "}
                         <span style={{ color: "#0000FF" }}>1</span>
+                       
                       </>
                     ) : (
                       <>
-                        <svg
+                        <svg className="lists__menu"
                           xmlns="http://www.w3.org/2000/svg"
                           width="1em"
                           height="1em"
@@ -221,7 +236,13 @@ class Card extends Component {
                     )}
 {this.state.thumbDown ? (
                     <>
-                    <svg
+
+                    {this.state.hoverName &&
+                       <p className="lists__menu_thumb">anusha L.</p> 
+                      }
+                        <svg
+                        onMouseEnter={this.handleMouseEnter}
+                        onMouseLeave={this.handleMouseLeave}
                       xmlns="http://www.w3.org/2000/svg"
                       width="1em"
                       height="1em"
@@ -234,7 +255,9 @@ class Card extends Component {
                         d="M2 2h5v14H2zm21 0H9v14.803l3.042 4.563l.845 5.917A2.01 2.01 0 0 0 14.867 29H15a3.003 3.003 0 0 0 3-3v-6h8a4.005 4.005 0 0 0 4-4V9a7.008 7.008 0 0 0-7-7z"
                       ></path>
                     </svg>
-                        <span style={{ color: "#0000FF" }}>1</span></>
+                        <span style={{ color: "#0000FF" }}>1</span>
+                        </>
+                        
                         )
                     : 
                     (

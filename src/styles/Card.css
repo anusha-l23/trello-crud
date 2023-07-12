@@ -73,3 +73,17 @@ padding-left: 0.2em;
   border-radius: 3px;
 
 }
+.lists__menu {
+  position: relative;
+}
+.lists__menu_thumb {
+  position: absolute;
+  top: -70%;
+  left: 60%;
+  width: 9rem;
+  color:white;
+  z-index: 2;
+  background-color: #0000FF;
+  border-radius: 8px;
+  padding:0.2em;
+}

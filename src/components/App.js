@@ -1,5 +1,4 @@
 import "../styles/App.css";
-
 import React, { Component } from "react";
 import Board from "./Board";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";

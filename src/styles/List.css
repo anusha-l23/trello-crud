@@ -89,7 +89,7 @@
 .lists__menu-dropdown1 {
   position: absolute;
   top: 35%;
-  left: 30%;
+  left: 50%;
   width: 15rem;
   z-index: 2;
   border: 1px solid gray;
