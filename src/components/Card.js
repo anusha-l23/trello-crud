@@ -28,9 +28,10 @@ class Card extends Component {
     thumbDown: false,
     hoverThumb: false,
     hoverThumb1: false,
-    hoverName: false
+    hoverName: false,
+   color:"white"
+    
   };
-
 
   toggleCardMenu = () => {
     document.addEventListener("click", this.toggleCardMenu);
@@ -126,9 +127,12 @@ class Card extends Component {
               onMouseEnter={this.startHover}
               onMouseLeave={this.endHover}
             >
-              {card?.text}
-
-              <hr style={{ marginTop: "1em", marginBottom: "2em" }} />
+              <p
+                style={{backgroundColor: this.state.color, padding:"1em"}}
+              >
+                {card?.text}
+              </p>
+              <hr style={{ marginBottom: "2em", marginTop: "-1em" }} />
               <div className="lists__menu">
                 <div className="flex">
                   <div className="flex-start">
@@ -193,12 +197,12 @@ class Card extends Component {
                   <div>
                     {this.state.thumb ? (
                       <>
-                      {this.state.hoverName &&
-                       <p className="lists__menu_thumb">anusha L.</p> 
-                      }
+                        {this.state.hoverName && (
+                          <p className="lists__menu_thumb">anusha L.</p>
+                        )}
                         <svg
-                        onMouseEnter={this.handleMouseEnter}
-                        onMouseLeave={this.handleMouseLeave}
+                          onMouseEnter={this.handleMouseEnter}
+                          onMouseLeave={this.handleMouseLeave}
                           xmlns="http://www.w3.org/2000/svg"
                           width="1em"
                           height="1em"
@@ -212,17 +216,21 @@ class Card extends Component {
                           ></path>
                         </svg>{" "}
                         <span style={{ color: "#0000FF" }}>1</span>
-                       
                       </>
                     ) : (
                       <>
-                        <svg className="lists__menu"
+                        <svg
+                          className="lists__menu"
                           xmlns="http://www.w3.org/2000/svg"
                           width="1em"
                           height="1em"
                           viewBox="0 0 24 24"
-                          onMouseEnter={()=> this.setState({hoverThumb: true})}
-                          onMouseLeave={()=> this.setState({hoverThumb: false})}
+                          onMouseEnter={() =>
+                            this.setState({ hoverThumb: true })
+                          }
+                          onMouseLeave={() =>
+                            this.setState({ hoverThumb: false })
+                          }
                           style={{ color: hoverThumb ? "#0000FF" : "#c4c4ff" }}
                           //style={{ color: this.state.hoverThumb ? "#0000FF" : "#c4c4ff" }}
                           onClick={() => this.setState({ thumb: true })}
@@ -234,51 +242,53 @@ class Card extends Component {
                         </svg>
                       </>
                     )}
-{this.state.thumbDown ? (
-                    <>
-
-                    {this.state.hoverName &&
-                       <p className="lists__menu_thumb">anusha L.</p> 
-                      }
-                        <svg
-                        onMouseEnter={this.handleMouseEnter}
-                        onMouseLeave={this.handleMouseLeave}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="1em"
-                      height="1em"
-                      viewBox="0 0 32 32"
-                      onClick={() => this.setState({ thumbDown: false })}
-                          style={{ color: "#0000FF", marginLeft: "4px" }}
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M2 2h5v14H2zm21 0H9v14.803l3.042 4.563l.845 5.917A2.01 2.01 0 0 0 14.867 29H15a3.003 3.003 0 0 0 3-3v-6h8a4.005 4.005 0 0 0 4-4V9a7.008 7.008 0 0 0-7-7z"
-                      ></path>
-                    </svg>
-                        <span style={{ color: "#0000FF" }}>1</span>
-                        </>
-                        
-                        )
-                    : 
-                    (
+                    {this.state.thumbDown ? (
                       <>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="1em"
-                      height="1em"
-                      viewBox="0 0 32 32"
-                      onMouseEnter={()=> this.setState({hoverThumb1: true})}
-                      onMouseLeave={()=> this.setState({hoverThumb1: false})}
-                      style={{ color: hoverThumb1 ? "#0000FF" : "#c4c4ff", marginLeft: "4px" }}
-                      onClick={() => this.setState({ thumbDown: true })}
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M2 2h5v14H2zm21 0H9v14.803l3.042 4.563l.845 5.917A2.01 2.01 0 0 0 14.867 29H15a3.003 3.003 0 0 0 3-3v-6h8a4.005 4.005 0 0 0 4-4V9a7.008 7.008 0 0 0-7-7z"
-                      ></path>
-                    </svg>
-                 
-                  </>
+                        {this.state.hoverName && (
+                          <p className="lists__menu_thumb">anusha L.</p>
+                        )}
+                        <svg
+                          onMouseEnter={this.handleMouseEnter}
+                          onMouseLeave={this.handleMouseLeave}
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="1em"
+                          height="1em"
+                          viewBox="0 0 32 32"
+                          onClick={() => this.setState({ thumbDown: false })}
+                          style={{ color: "#0000FF", marginLeft: "4px" }}
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M2 2h5v14H2zm21 0H9v14.803l3.042 4.563l.845 5.917A2.01 2.01 0 0 0 14.867 29H15a3.003 3.003 0 0 0 3-3v-6h8a4.005 4.005 0 0 0 4-4V9a7.008 7.008 0 0 0-7-7z"
+                          ></path>
+                        </svg>
+                        <span style={{ color: "#0000FF" }}>1</span>
+                      </>
+                    ) : (
+                      <>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="1em"
+                          height="1em"
+                          viewBox="0 0 32 32"
+                          onMouseEnter={() =>
+                            this.setState({ hoverThumb1: true })
+                          }
+                          onMouseLeave={() =>
+                            this.setState({ hoverThumb1: false })
+                          }
+                          style={{
+                            color: hoverThumb1 ? "#0000FF" : "#c4c4ff",
+                            marginLeft: "4px",
+                          }}
+                          onClick={() => this.setState({ thumbDown: true })}
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M2 2h5v14H2zm21 0H9v14.803l3.042 4.563l.845 5.917A2.01 2.01 0 0 0 14.867 29H15a3.003 3.003 0 0 0 3-3v-6h8a4.005 4.005 0 0 0 4-4V9a7.008 7.008 0 0 0-7-7z"
+                          ></path>
+                        </svg>
+                      </>
                     )}
                     <button
                       className="lists__menu-btn1"
@@ -361,7 +371,7 @@ class Card extends Component {
                           </svg>{" "}
                           Move card <span className="upgrade">UPGRADE</span>
                         </li>
-                        <li style={{ marginTop: "1em" }} onClick={()=>{}}>
+                        <li style={{ marginTop: "1em" }} onClick={() => {}}>
                           <UncontrolledDropdown setActiveFromChild>
                             <DropdownToggle tag="a" className="nav-link" caret>
                               <svg
@@ -461,6 +471,80 @@ class Card extends Component {
                           Delete
                         </li>
                       </ul>
+                      <div style={{ marginLeft: "2em", marginBottom: "1em" }}>
+                        <hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+                        <span
+                          style={{
+                            backgroundColor: "#e8f0fd",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                          }}
+                          onClick={()=>this.setState({color:"#e8f0fd"})}
+                        ></span>
+                        <span
+                          style={{
+                            backgroundColor: "#f2f2fe",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                            marginLeft: "0.5em",
+                          }}
+                          onClick={()=>this.setState({color:"#f2f2fe"})}
+                        ></span>
+                        <span
+                          style={{
+                            backgroundColor: "#f1f9e6",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                            marginLeft: "0.5em",
+                          }}
+
+                               onClick={()=>this.setState({color:"#f1f9e6"})}
+                        ></span>
+                        <span
+                          style={{
+                            backgroundColor: "#fcf1e3",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                            marginLeft: "0.5em",
+                          }}
+                          onClick={()=>this.setState({color:"#fcf1e3"})}
+                        ></span>
+                        <span
+                          style={{
+                            backgroundColor: "#fdf3f1",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                            marginLeft: "0.5em",
+                          }}
+                          onClick={()=>this.setState({color:"#fdf3f1"})}
+
+                        ></span>
+                        <span
+                          style={{
+                            backgroundColor: "#f8e9e6",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                            marginLeft: "0.5em",
+                          }}
+                          onClick={()=>this.setState({color:"#f8e9e6"})}
+                        ></span>
+                        <span
+                          style={{
+                            backgroundColor: "#dedef1",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                            marginLeft: "0.5em",
+                          }}
+                          onClick={()=>this.setState({color:"#dedef1"})}
+                        ></span>
+                      </div>
                     </div>
                   )}
                 </div>
