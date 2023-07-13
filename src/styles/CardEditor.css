@@ -305,3 +305,12 @@ border-radius: 4px;
   border-radius: 8px;
   border-color: #e3e3e7;
 }
+.emoji-container{
+  position: relative;
+  width:200px;
+}
+.emoji-icon{
+  position:absolute;
+  cursor:pointer;
+  margin-top: 4px;
+}

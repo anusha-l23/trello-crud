@@ -4,6 +4,7 @@ import "react-responsive-modal/styles.css";
 import React, { Component } from "react";
 import EditButtons from "./EditButtons";
 import giphy from "../assets/giphy.gif";
+import Picker from "emoji-picker-react";
 class CardEditor extends Component {
   state = {
     text: this.props.text || "",
@@ -22,9 +23,13 @@ class CardEditor extends Component {
     kudos: false,
     openModalPoll: false,
     openModalDraw: false,
-    isHover6: false
+    isHover6: false,
+    showPicker: false,
   };
-
+onEmojiClick = (emojiObject, event) => {
+  this.setState({text: prev => prev + emojiObject.emoji});
+  this.setState({showPicker: false})
+} 
   toggleKudos = () => {
     this.setState({ kudos: true });
   };
@@ -151,15 +156,24 @@ class CardEditor extends Component {
     return (
       <div className="Edit-Card lists__menu">
         <div className="Card">
+          <div className="emoji-container">
+      
           <input
             autoFocus
             className="Edit-Card-Textarea"
             placeholder="Please enter to Add Card"
             value={text}
+            style={{marginTop:"15px"}}
             onChange={this.handleChangeText}
             onKeyDown={this.onEnter}
           />
-
+          <img className="emoji-icon text-end" src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg" onClick={()=>this.setState({showPicker: !this.state.showPicker})} alt="emoji"/>
+        
+          {this.state.showPicker && <Picker
+ pickerStyle={{width:"50%"}}
+ onEmojiClick={this.onEmojiClick} />
+ }
+   </div>
           {action && !this.state.name && (
             <svg
               className="rounded-dashed"
