@@ -660,14 +660,14 @@ onEmojiClick = (emojiObject, event) => {
             </div>
           )}
         </div>
- 
+{/*  
         <EditButtons
           handleSave={() => onSave(text)}
           saveLabel={adding ? "Add card" : "Save"}
           handleDelete={onDelete}
           handleCancel={onCancel}
         />
-      
+       */}
       </div>
     );
   }

@@ -47,13 +47,9 @@
 }
 .dots-color{
   margin-right: 10px;
-  color: #6b808c;
+  color: #0000FF;
 }
-.dots-color1{
-  margin-right: 10px;
-  color: #6b808c;
-  background-color: white;
-}
+
 .lists__menu-btn {
   font-size: 1rem;
   padding: 4px 0px 4px 8px;

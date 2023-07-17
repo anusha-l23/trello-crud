@@ -454,7 +454,7 @@ class Card extends Component {
                         </li>
                         <li
                           style={{ marginTop: "1em" }}
-                          onClick={this.startEditing}
+                          onClick={this.deleteCard}
                         >
                           <svg
                             style={{ color: "red", fontWeight: "bold" }}
