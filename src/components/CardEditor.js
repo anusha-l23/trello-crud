@@ -167,13 +167,6 @@ onEmojiClick = (emojiObject, event) => {
             onChange={this.handleChangeText}
             onKeyDown={this.onEnter}
           /> 
-          {/* <InputEmoji
-          value={text}
-          onChange={setText}
-          cleanOnEnter
-          onEnter={handleOnEnter}
-          placeholder="Type a message"
-        /> */}
   
    </div>
           {action && !this.state.name && (
