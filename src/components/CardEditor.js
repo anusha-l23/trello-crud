@@ -182,7 +182,7 @@ handleGif = () => {
             autoFocus
             className="Edit-Card-Textarea"
             placeholder="Please enter to Add Card"
-        value={text}
+            value={text}
             style={{marginTop:"15px"}}
             onChange={this.handleChangeText}
             onKeyDown={this.onEnter}
