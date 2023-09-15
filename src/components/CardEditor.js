@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import EditButtons from "./EditButtons";
 import giphy from "../assets/giphy.gif";
 import Picker from "emoji-picker-react";
+import InputEmoji from 'react-input-emoji'
 class CardEditor extends Component {
   state = {
     text: this.props.text || "",
@@ -158,7 +159,7 @@ onEmojiClick = (emojiObject, event) => {
         <div className="Card">
           <div className="emoji-container">
       
-          <input
+        <input
             autoFocus
             className="Edit-Card-Textarea"
             placeholder="Please enter to Add Card"
@@ -166,13 +167,15 @@ onEmojiClick = (emojiObject, event) => {
             style={{marginTop:"15px"}}
             onChange={this.handleChangeText}
             onKeyDown={this.onEnter}
-          />
-          <img className="emoji-icon text-end" src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg" onClick={()=>this.setState({showPicker: !this.state.showPicker})} alt="emoji"/>
-        
-          {this.state.showPicker && <Picker
- pickerStyle={{width:"50%"}}
- onEmojiClick={this.onEmojiClick} />
- }
+          /> 
+          {/* <InputEmoji
+          value={text}
+          onChange={setText}
+          cleanOnEnter
+          onEnter={handleOnEnter}
+          placeholder="Type a message"
+        /> */}
+  
    </div>
           {action && !this.state.name && (
             <svg

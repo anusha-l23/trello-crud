@@ -115,6 +115,7 @@ class List extends Component {
       toggleCard,
       togglePlus,
     } = this.state;
+
     console.log(this.state.cards, "state");
     return (
       <Draggable draggableId={list._id} index={index}>
@@ -178,11 +179,11 @@ class List extends Component {
                       onClick={() =>
                         toggleMove
                           ? this.setState({
-                              toggleMove: !this.state.toggleMove,
-                            })
+                            toggleMove: !this.state.toggleMove,
+                          })
                           : this.setState({
-                              toggleMenu: !this.state.toggleMenu,
-                            })
+                            toggleMenu: !this.state.toggleMenu,
+                          })
                       }
                     >
                       <svg
@@ -198,7 +199,7 @@ class List extends Component {
                       </svg>
                     </button>
                   </div>
-                  {toggleMenu && (
+                  {/* {toggleMenu && (
                     <div className="lists__menu-dropdown">
                       <div className="lists__menu-title">
                         <div className="flex">
@@ -243,6 +244,138 @@ class List extends Component {
                       <ul className="lists__menu-dropdown__options">
                         <li>Archive this list</li>
                       </ul>
+                    </div>
+                  )} */}
+                  {this.state.toggleMenu && (
+                    <div className="lists__menu-dropdown3">
+                      <ul className="ul">
+                        <li
+                          style={{ marginTop: "1em" }}
+                          onClick={this.editListTitle}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="1em"
+                            height="1em"
+                            viewBox="0 0 24 24"
+                            style={{ color: "#0000FF" }}
+                          >
+                            <path
+                              fill="currentColor"
+                              d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"
+                            ></path>
+                          </svg>{" "}
+                          Edit
+                        </li>
+                        <li
+                          style={{ marginTop: "1em" }}
+                          onClick={this.deleteCard}
+                        >
+                          <i
+                            className="fa fa-comment-o"
+                            style={{ color: "#0000FF" }}
+                          ></i> Convert All to Comments
+                        </li>
+                        <li
+                          style={{ marginTop: "1em" }}
+                          onClick={this.deleteCard}
+                        >
+                        
+                          <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" style={{ color: "#0000FF" }}><path fill="currentColor" d="M505 174.8l-39.6-39.6c-9.4-9.4-24.6-9.4-33.9 0L192 374.7 80.6 263.2c-9.4-9.4-24.6-9.4-33.9 0L7 302.9c-9.4 9.4-9.4 24.6 0 34L175 505c9.4 9.4 24.6 9.4 33.9 0l296-296.2c9.4-9.5 9.4-24.7.1-34zm-324.3 106c6.2 6.3 16.4 6.3 22.6 0l208-208.2c6.2-6.3 6.2-16.4 0-22.6L366.1 4.7c-6.2-6.3-16.4-6.3-22.6 0L192 156.2l-55.4-55.5c-6.2-6.3-16.4-6.3-22.6 0L68.7 146c-6.2 6.3-6.2 16.4 0 22.6l112 112.2z" /></svg> Convert All to Actions
+                        </li>
+                        <li
+                          style={{ marginTop: "1em" }}
+                          onClick={this.deleteCard}
+                        >
+                          <svg
+                            style={{ color: "#0000FF", fontWeight: "bold" }}
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="1em"
+                            height="1em"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              fill="currentColor"
+                              d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"
+                            ></path>
+                          </svg>{" "}
+                          Empty Column
+                        </li>
+                      </ul>
+                      <div style={{ marginLeft: "2em", marginBottom: "1em" }}>
+                        <hr style={{ marginTop: "1em", marginBottom: "1em" }} />
+                        <span
+                          style={{
+                            backgroundColor: "#e8f0fd",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                          }}
+                          onClick={() => this.setState({ color: "#e8f0fd" })}
+                        ></span>
+                        <span
+                          style={{
+                            backgroundColor: "#f2f2fe",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                            marginLeft: "0.5em",
+                          }}
+                          onClick={() => this.setState({ color: "#f2f2fe" })}
+                        ></span>
+                        <span
+                          style={{
+                            backgroundColor: "#f1f9e6",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                            marginLeft: "0.5em",
+                          }}
+
+                          onClick={() => this.setState({ color: "#f1f9e6" })}
+                        ></span>
+                        <span
+                          style={{
+                            backgroundColor: "#fcf1e3",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                            marginLeft: "0.5em",
+                          }}
+                          onClick={() => this.setState({ color: "#fcf1e3" })}
+                        ></span>
+                        <span
+                          style={{
+                            backgroundColor: "#fdf3f1",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                            marginLeft: "0.5em",
+                          }}
+                          onClick={() => this.setState({ color: "#fdf3f1" })}
+
+                        ></span>
+                        <span
+                          style={{
+                            backgroundColor: "#f8e9e6",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                            marginLeft: "0.5em",
+                          }}
+                          onClick={() => this.setState({ color: "#f8e9e6" })}
+                        ></span>
+                        <span
+                          style={{
+                            backgroundColor: "#dedef1",
+                            paddingLeft: "9px",
+                            paddingRight: "9px",
+                            borderRadius: "6px",
+                            marginLeft: "0.5em",
+                          }}
+                          onClick={() => this.setState({ color: "#dedef1" })}
+                        ></span>
+                      </div>
                     </div>
                   )}
                 </div>
