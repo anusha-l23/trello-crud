@@ -5,7 +5,6 @@ import React, { Component } from "react";
 import EditButtons from "./EditButtons";
 import giphy from "../assets/giphy.gif";
 import Picker from "emoji-picker-react";
-import InputEmoji from 'react-input-emoji'
 class CardEditor extends Component {
   state = {
     text: this.props.text || "",
