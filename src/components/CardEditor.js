@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import EditButtons from "./EditButtons";
 import giphy from "../assets/giphy.gif";
 import Picker from "emoji-picker-react";
+import axios from "axios";
 class CardEditor extends Component {
   state = {
     text: this.props.text || "",
@@ -20,6 +21,7 @@ class CardEditor extends Component {
     profile: false,
     name: false,
     gif: false,
+    randomGif:"",
     kudos: false,
     openModalPoll: false,
     openModalDraw: false,
@@ -84,7 +86,12 @@ onEmojiClick = (emojiObject, event) => {
   onCloseDraw = () => {
     this.setState({ openModalDraw: false });
   };
-  handleChangeText = (event) => this.setState({ text: event.target.value });
+  handleChangeText = (event) => {
+    this.setState({ text: event.target.value})
+};
+// handleChangeGif = () => {
+//   `${this.state.randomGif}`
+// };
 
   onEnter = (e) => {
     const { text } = this.state;
@@ -131,6 +138,19 @@ onEmojiClick = (emojiObject, event) => {
     this.setState({ isHover5: false });
   };
 
+handleGif = () => {
+  axios
+  .get(`https://api.giphy.com/v1/gifs/random?api_key=HNBQ1lw4HS820hCCOn5Z6HB1cap7q18W`)
+  .then((response) => {
+    this.setState({randomGif: response.data.data.images.fixed_height.url});
+  })
+  .catch((error) => {
+    console.error('Error fetching random GIF:', error);
+  });
+}
+
+
+
   render() {
     const {
       text,
@@ -162,7 +182,7 @@ onEmojiClick = (emojiObject, event) => {
             autoFocus
             className="Edit-Card-Textarea"
             placeholder="Please enter to Add Card"
-            value={text}
+        value={text}
             style={{marginTop:"15px"}}
             onChange={this.handleChangeText}
             onKeyDown={this.onEnter}
@@ -239,7 +259,7 @@ onEmojiClick = (emojiObject, event) => {
               </div>
             </div>
           )}
-          {this.state.gif && (
+          {/* {this.state.gif && (
             <>
               <img
                 src={giphy}
@@ -256,7 +276,8 @@ onEmojiClick = (emojiObject, event) => {
                 <button className="bluebutton">Shuffle</button>
               </div>
             </>
-          )}
+          )} */}
+      {this.state.randomGif && <img src={this.state.randomGif} alt="Random GIF" />}
           {this.state.kudos && (
             <div className="flex-start" style={{ marginTop: "0.5em" }}>
               <svg
@@ -309,7 +330,8 @@ onEmojiClick = (emojiObject, event) => {
                 onMouseEnter={this.handleMouseEnter2}
                 onMouseLeave={this.handleMouseLeave2}
                 style={{ color: isHover2 ? "#0000FF" : "#c4c4ff" }}
-                onClick={this.toggleGif}
+               // onClick={this.toggleGif}
+               onClick={this.handleGif}
                 xmlns="http://www.w3.org/2000/svg"
                 width="1.5em"
                 height="1.5em"
