@@ -285,7 +285,7 @@ class List extends Component {
                         </li>
                         <li
                           style={{ marginTop: "1em" }}
-                          onClick={this.deleteCard}
+                          onClick={this.deleteList}
                         >
                           <svg
                             style={{ color: "#0000FF", fontWeight: "bold" }}
