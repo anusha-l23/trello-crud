@@ -628,7 +628,7 @@ handleGif = () => {
                 <i
                   className="fa fa-comment"
                   style={{ color: "#0000FF" }}
-                  onClick={startEditing}
+                //  onClick={startEditing}
                 ></i>
               </button>
               <div>

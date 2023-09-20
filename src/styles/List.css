@@ -60,12 +60,16 @@
 
 .lists__menu-btn1 {
   font-size: 1rem;
-  padding: 4px 0px 4px 8px;
-  margin-right:2px;
-  border:none;
+  padding: 0px 2px 0px 2px;
+  margin-left:10px;
+  margin-bottom:5px;
+  margin-right:6px;
+  border-radius: 5px;
+  border:1px solid #b2bec4;
   background: white;
-  color:gray;
+  color:#0000FF;
 }
+
 .lists__menu-btn:hover {
   background-color: #b2bec4;
 }

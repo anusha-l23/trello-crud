@@ -29,8 +29,13 @@ class Card extends Component {
     hoverThumb: false,
     hoverThumb1: false,
     hoverName: false,
-   color:"white"
-    
+    color: "white",
+    vote: false,
+    isOpen: true,
+  };
+
+  handleClose = () => {
+    this.setState({isOpen: false});
   };
 
   toggleCardMenu = () => {
@@ -40,6 +45,9 @@ class Card extends Component {
     this.setState({ hoverName: true });
   };
 
+  handleVote = () => {
+    this.setState({ vote: true })
+  }
   handleMouseLeave = () => {
     this.setState({ hoverName: false });
   };
@@ -53,10 +61,12 @@ class Card extends Component {
     e.preventDefault();
     this.setState({ openModal: true });
   };
+ 
 
   onCloseModal = () => {
     this.setState({ openModal: false });
   };
+ 
 
   endEditing = () => this.setState({ editing: false });
 
@@ -128,7 +138,7 @@ class Card extends Component {
               onMouseLeave={this.endHover}
             >
               <p
-                style={{backgroundColor: this.state.color, padding:"1em"}}
+                style={{ backgroundColor: this.state.color, padding: "1em" }}
               >
                 {card?.text}
               </p>
@@ -146,6 +156,7 @@ class Card extends Component {
                         style={{ color: "#0000FF" }}
                       ></i>
                     </button>
+                   
                     <div>
                       <Modal
                         open={this.state.openModal}
@@ -197,9 +208,54 @@ class Card extends Component {
                   <div>
                     {this.state.thumb ? (
                       <>
-                        {this.state.hoverName && (
-                          <p className="lists__menu_thumb">anusha L.</p>
+                        {/* {this.state.hoverName && (
+                          <p className="lists__menu_thumb" onClick={this.handleVote}><i class="fa fa-eye" aria-hidden="true"></i> Show Voters</p>
+                         )} */}
+                        {this.state.vote ? 
+                        <>
+                        <div>
+                        {this.state.isOpen && (
+                        <div className="lists__menu_thumb1">
+                          <p onClick={this.handleClose} style={{textAlign:"right"}}>X</p>
+                        <p style={{ color: "white", fontWeight:"bold", textAlign:"center" }}><svg
+                        onMouseEnter={this.handleMouseEnter}
+                        onMouseLeave={this.handleMouseLeave}
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 24 24"
+                        onClick={() => this.setState({ thumb: false })}
+                      
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M18 21H8V8l7-7l1.25 1.25q.175.175.288.475t.112.575v.35L15.55 8H21q.8 0 1.4.6T23 10v2q0 .175-.037.375t-.113.375l-3 7.05q-.225.5-.75.85T18 21ZM6 8v13H2V8h4Z"
+                        ></path>
+                      </svg> <span style={{ fontWeight:"bold" }}>1 Vote</span></p>
+                      <p className=""><svg
+                      onMouseEnter={this.handleMouseEnter}
+                      onMouseLeave={this.handleMouseLeave}
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 24 24"
+                      onClick={() => this.setState({ thumb: false })}
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M18 21H8V8l7-7l1.25 1.25q.175.175.288.475t.112.575v.35L15.55 8H21q.8 0 1.4.6T23 10v2q0 .175-.037.375t-.113.375l-3 7.05q-.225.5-.75.85T18 21ZM6 8v13H2V8h4Z"
+                      ></path>
+                    </svg> anusha lakkakula</p>
+                    
+                    </div>
                         )}
+                      </div>
+                        
+                      </>
+                        :
+                          <p className="lists__menu_thumb" onClick={() => this.setState({ vote: true })}><i class="fa fa-eye" aria-hidden="true"></i> Show Voters</p>
+                        }
+
                         <svg
                           onMouseEnter={this.handleMouseEnter}
                           onMouseLeave={this.handleMouseLeave}
@@ -295,11 +351,11 @@ class Card extends Component {
                       onClick={() =>
                         toggleMove
                           ? this.setState({
-                              toggleMove: !this.state.toggleMove,
-                            })
+                            toggleMove: !this.state.toggleMove,
+                          })
                           : this.setState({
-                              toggleCardMenu: !this.state.toggleCardMenu,
-                            })
+                            toggleCardMenu: !this.state.toggleCardMenu,
+                          })
                       }
                     >
                       <svg
@@ -371,7 +427,7 @@ class Card extends Component {
                           </svg>{" "}
                           Move card <span className="upgrade">UPGRADE</span>
                         </li>
-                        <li style={{ marginTop: "1em" }} onClick={() => {}}>
+                        <li style={{ marginTop: "1em" }} onClick={() => { }}>
                           <UncontrolledDropdown setActiveFromChild>
                             <DropdownToggle tag="a" className="nav-link" caret>
                               <svg
@@ -480,7 +536,7 @@ class Card extends Component {
                             paddingRight: "9px",
                             borderRadius: "6px",
                           }}
-                          onClick={()=>this.setState({color:"#e8f0fd"})}
+                          onClick={() => this.setState({ color: "#e8f0fd" })}
                         ></span>
                         <span
                           style={{
@@ -490,7 +546,7 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={()=>this.setState({color:"#f2f2fe"})}
+                          onClick={() => this.setState({ color: "#f2f2fe" })}
                         ></span>
                         <span
                           style={{
@@ -501,7 +557,7 @@ class Card extends Component {
                             marginLeft: "0.5em",
                           }}
 
-                               onClick={()=>this.setState({color:"#f1f9e6"})}
+                          onClick={() => this.setState({ color: "#f1f9e6" })}
                         ></span>
                         <span
                           style={{
@@ -511,7 +567,7 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={()=>this.setState({color:"#fcf1e3"})}
+                          onClick={() => this.setState({ color: "#fcf1e3" })}
                         ></span>
                         <span
                           style={{
@@ -521,7 +577,7 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={()=>this.setState({color:"#fdf3f1"})}
+                          onClick={() => this.setState({ color: "#fdf3f1" })}
 
                         ></span>
                         <span
@@ -532,7 +588,7 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={()=>this.setState({color:"#f8e9e6"})}
+                          onClick={() => this.setState({ color: "#f8e9e6" })}
                         ></span>
                         <span
                           style={{
@@ -542,7 +598,7 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={()=>this.setState({color:"#dedef1"})}
+                          onClick={() => this.setState({ color: "#dedef1" })}
                         ></span>
                       </div>
                     </div>
