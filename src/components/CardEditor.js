@@ -623,59 +623,9 @@ handleGif = () => {
           ) : (
             <div className="flex-start">
               <div className="">anusha L.</div>
-
-              <button onClick={this.onClickButton} style={{ border: "none" }}>
-                <i
-                  className="fa fa-comment"
-                  style={{ color: "#0000FF" }}
-                //  onClick={startEditing}
-                ></i>
-              </button>
-              <div>
-                <Modal open={this.state.openModal} onClose={this.onCloseModal}>
-                  <p className="text-lg m-4 text-center">{text}</p>
-                  {this.state.list.map((item, index) => {
-                    return (
-                      <div key={index}>
-                        <div
-                          variant="dark"
-                          action
-                          style={{
-                            backgroundColor: "#c4c4ff",
-                            padding: "1em",
-                            marginTop: "1em",
-                          }}
-                        >
-                          {item.value}
-                        </div>
-                      </div>
-                    );
-                  })}
-                  <input
-                    type="text"
-                    className="width"
-                    value={this.state.userInput}
-                    onChange={(e) => this.updateInput(e)}
-                  ></input>
-
-                  <div className="text-center">
-                    <button
-                      type="button"
-                      className="btn btn-outline-secondary btn-lg btn-block"
-                      style={{
-                        backgroundColor: "#0000FF",
-                        padding: "0.5em 7em 0.5em 7em",
-                        marginTop: "1em",
-                      }}
-                      onClick={() => this.addItem()}
-                    >
-                      Comment
-                    </button>
-                  </div>
-                </Modal>
-              </div>
-            </div>
+</div>
           )}
+              
         </div>
 {/*  
         <EditButtons

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Modal } from "react-responsive-modal";
 import { Draggable } from "react-beautiful-dnd";
 import CardEditor from "./CardEditor";
+import { toast } from 'react-toastify';
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -32,15 +33,38 @@ class Card extends Component {
     color: "white",
     vote: false,
     isOpen: true,
+    export: false,
+    loading: false,
+    moveCard: false,
+    history:false
   };
+
+
+  dropdownRef = React.createRef();
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
 
   handleClose = () => {
-    this.setState({isOpen: false});
+    this.setState({ isOpen: false });
   };
 
-  toggleCardMenu = () => {
-    document.addEventListener("click", this.toggleCardMenu);
+  handleClickOutside = (event) => {
+    if (this.dropdownRef.current && !this.dropdownRef.current.contains(event.target)) {
+      this.setState({
+        toggleCardMenu: false,
+      });
+    }
   };
+
+  // toggleCardMenu = () => {
+  //   document.addEventListener("click", this.toggleCardMenu);
+  // };
   handleMouseEnter = () => {
     this.setState({ hoverName: true });
   };
@@ -61,12 +85,36 @@ class Card extends Component {
     e.preventDefault();
     this.setState({ openModal: true });
   };
- 
 
+  onClickMoveCard = (e) => {
+    e.preventDefault();
+    this.setState({ moveCard: true });
+  };
+
+  onCloseMoveCard = () => {
+    this.setState({ moveCard: false });
+  };
+
+  onClickExport = (e) => {
+    e.preventDefault();
+    this.setState({ export: true });
+  };
+
+  onCloseExport = () => {
+    this.setState({ export: false });
+  };
+  onClickHistory = (e) => {
+    e.preventDefault();
+    this.setState({ history: true });
+  };
+
+  onCloseHistory = () => {
+    this.setState({ history: false });
+  };
   onCloseModal = () => {
     this.setState({ openModal: false });
   };
- 
+
 
   endEditing = () => this.setState({ editing: false });
 
@@ -79,7 +127,10 @@ class Card extends Component {
       type: "CHANGE_CARD_TEXT",
       payload: { cardId: card?._id, cardText: text },
     });
-    alert("Are you sure want to edit card");
+    toast.success('Success! Card updated successfully!'
+    , {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
   };
 
   deleteCard = async () => {
@@ -89,7 +140,6 @@ class Card extends Component {
       type: "DELETE_CARD",
       payload: { cardId: card._id, listId },
     });
-    alert("Are you sure want to delete card");
   };
 
   updateInput(e) {
@@ -147,60 +197,52 @@ class Card extends Component {
                 <div className="flex">
                   <div className="flex-start">
                     <div className="">anusha L.</div>
-                    <button
+
+                    <i
+                      className="fa fa-comment"
+                      style={{ color: "#0000FF" }}
                       onClick={this.onClickButton}
-                      style={{ border: "none" }}
-                    >
-                      <i
-                        className="fa fa-comment"
-                        style={{ color: "#0000FF" }}
-                      ></i>
-                    </button>
-                   
+                    ></i>
+
+                    {this.state.list.length > 0 && <p style={{ marginTop: "1em" }}>{this.state.list.length}</p>}
                     <div>
                       <Modal
                         open={this.state.openModal}
                         onClose={this.onCloseModal}
                       >
-                        <p className="text-lg m-4 text-center">{card?.text}</p>
+                        <p className="m-4">{card?.text}</p>
+                        <hr />
                         {this.state.list.map((item, index) => {
                           return (
-                            <div key={index}>
+                            <div key={index} className="flex" style={{ marginTop: "1em" }}>
+                              <div></div>
                               <div
                                 variant="dark"
                                 action
                                 style={{
-                                  backgroundColor: "#c4c4ff",
-                                  padding: "1em",
-                                  marginTop: "1em",
+                                  backgroundColor: "#0000FF",
+                                  paddingLeft: "1em",
+                                  paddingRight: "1em",
+                                  color: "white", borderRadius: "5px"
                                 }}
                               >
                                 {item.value}
-                                <span></span>
+                                <p style={{ fontSize: "80%" }}>anusha l</p>
                               </div>
                             </div>
                           );
                         })}
-                        <input
-                          type="text"
-                          className="width"
-                          value={this.state.userInput}
-                          onChange={(e) => this.updateInput(e)}
-                        ></input>
+                        <div className="flex width">
+                          <input
+                            type="text"
+                            className="comment"
+                            value={this.state.userInput}
+                            onChange={(e) => this.updateInput(e)}
 
-                        <div className="text-center">
-                          <button
-                            type="button"
-                            className="btn btn-outline-secondary btn-lg btn-block"
-                            style={{
-                              backgroundColor: "#0000FF",
-                              padding: "0.5em 7em 0.5em 7em",
-                              marginTop: "1em",
-                            }}
-                            onClick={() => this.addItem()}
-                          >
-                            Comment
-                          </button>
+                          />
+
+                          <i class='fa fa-send' style={{ color: "blue", cursor: "pointer" }} onClick={() => this.addItem()}></i>
+
                         </div>
                       </Modal>
                     </div>
@@ -211,48 +253,50 @@ class Card extends Component {
                         {/* {this.state.hoverName && (
                           <p className="lists__menu_thumb" onClick={this.handleVote}><i class="fa fa-eye" aria-hidden="true"></i> Show Voters</p>
                          )} */}
-                        {this.state.vote ? 
-                        <>
-                        <div>
-                        {this.state.isOpen && (
-                        <div className="lists__menu_thumb1">
-                          <p onClick={this.handleClose} style={{textAlign:"right"}}>X</p>
-                        <p style={{ color: "white", fontWeight:"bold", textAlign:"center" }}><svg
-                        onMouseEnter={this.handleMouseEnter}
-                        onMouseLeave={this.handleMouseLeave}
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="1em"
-                        height="1em"
-                        viewBox="0 0 24 24"
-                        onClick={() => this.setState({ thumb: false })}
-                      
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M18 21H8V8l7-7l1.25 1.25q.175.175.288.475t.112.575v.35L15.55 8H21q.8 0 1.4.6T23 10v2q0 .175-.037.375t-.113.375l-3 7.05q-.225.5-.75.85T18 21ZM6 8v13H2V8h4Z"
-                        ></path>
-                      </svg> <span style={{ fontWeight:"bold" }}>1 Vote</span></p>
-                      <p className=""><svg
-                      onMouseEnter={this.handleMouseEnter}
-                      onMouseLeave={this.handleMouseLeave}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="1em"
-                      height="1em"
-                      viewBox="0 0 24 24"
-                      onClick={() => this.setState({ thumb: false })}
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M18 21H8V8l7-7l1.25 1.25q.175.175.288.475t.112.575v.35L15.55 8H21q.8 0 1.4.6T23 10v2q0 .175-.037.375t-.113.375l-3 7.05q-.225.5-.75.85T18 21ZM6 8v13H2V8h4Z"
-                      ></path>
-                    </svg> anusha lakkakula</p>
-                    
-                    </div>
-                        )}
-                      </div>
-                        
-                      </>
-                        :
+
+
+                        {this.state.vote ?
+                          <>
+                            <div>
+                              {this.state.isOpen && (
+                                <div className="lists__menu_thumb1">
+                                  <p onClick={this.handleClose} style={{ textAlign: "right" }}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"></path></svg></p>
+                                  <p style={{ color: "white", fontWeight: "bold", textAlign: "center" }}><svg
+                                    onMouseEnter={this.handleMouseEnter}
+                                    onMouseLeave={this.handleMouseLeave}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 24 24"
+                                    onClick={() => this.setState({ thumb: false })}
+
+                                  >
+                                    <path
+                                      fill="currentColor"
+                                      d="M18 21H8V8l7-7l1.25 1.25q.175.175.288.475t.112.575v.35L15.55 8H21q.8 0 1.4.6T23 10v2q0 .175-.037.375t-.113.375l-3 7.05q-.225.5-.75.85T18 21ZM6 8v13H2V8h4Z"
+                                    ></path>
+                                  </svg> <span style={{ fontWeight: "bold" }}>1 Vote</span></p>
+                                  <p className=""><svg
+                                    onMouseEnter={this.handleMouseEnter}
+                                    onMouseLeave={this.handleMouseLeave}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 24 24"
+                                    onClick={() => this.setState({ thumb: false })}
+                                  >
+                                    <path
+                                      fill="currentColor"
+                                      d="M18 21H8V8l7-7l1.25 1.25q.175.175.288.475t.112.575v.35L15.55 8H21q.8 0 1.4.6T23 10v2q0 .175-.037.375t-.113.375l-3 7.05q-.225.5-.75.85T18 21ZM6 8v13H2V8h4Z"
+                                    ></path>
+                                  </svg> anusha lakkakula</p>
+
+                                </div>
+                              )}
+                            </div>
+
+                          </>
+                          :
                           <p className="lists__menu_thumb" onClick={() => this.setState({ vote: true })}><i class="fa fa-eye" aria-hidden="true"></i> Show Voters</p>
                         }
 
@@ -372,7 +416,7 @@ class Card extends Component {
                     </button>
                   </div>
                   {this.state.toggleCardMenu && (
-                    <div className="lists__menu-dropdown3">
+                    <div className="lists__menu-dropdown3" ref={this.dropdownRef}>
                       <ul className="ul">
                         <li
                           style={{ marginTop: "1em" }}
@@ -406,7 +450,7 @@ class Card extends Component {
                           </svg>{" "}
                           Duplicate card
                         </li>
-                        <li style={{ marginTop: "1em" }}>
+                        <li style={{ marginTop: "1em" }} onClick={this.onClickMoveCard}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="1em"
@@ -427,6 +471,7 @@ class Card extends Component {
                           </svg>{" "}
                           Move card <span className="upgrade">UPGRADE</span>
                         </li>
+
                         <li style={{ marginTop: "1em" }} onClick={() => { }}>
                           <UncontrolledDropdown setActiveFromChild>
                             <DropdownToggle tag="a" className="nav-link" caret>
@@ -481,18 +526,18 @@ class Card extends Component {
                             <DropdownMenu
                               style={{ marginLeft: "13em", marginTop: "-5em" }}
                             >
-                              <DropdownItem>
+                              <DropdownItem onClick={this.onClickExport}>
                                 Export to <br />
                                 Jira <span className="upgrade">UPGRADE</span>
                               </DropdownItem>
-                              <DropdownItem>
+                              <DropdownItem onClick={this.onClickExport}>
                                 Export to <br />
-                                Jira <span className="upgrade">UPGRADE</span>
+                                Azure <span className="upgrade">UPGRADE</span>
                               </DropdownItem>
                             </DropdownMenu>
                           </UncontrolledDropdown>
                         </li>
-                        <li style={{ marginTop: "1em" }}>
+                        <li style={{ marginTop: "1em" }} onClick={this.onClickHistory}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="1em"
@@ -603,6 +648,78 @@ class Card extends Component {
                       </div>
                     </div>
                   )}
+                   <Modal
+                          open={this.state.moveCard}
+                          onClose={this.onCloseMoveCard}
+                        >
+                          <div>
+                            <h3 className="moveHead">Move Cards</h3>
+                            <p className="movePara">Run retrospectives even when you are sleeping</p>
+                            <p className="movePara"><span style={{backgroundColor:"#f2c94c", color:"white", borderRadius:"5px", padding:"0.3em"}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7v2h2V7h-2m3 10v-2h-1v-4h-3v2h1v2h-1v2h4m8-5c0 5.5-4.5 10-10 10S2 17.5 2 12S6.5 2 12 2s10 4.5 10 10m-2 0c0-4.42-3.58-8-8-8s-8 3.58-8 8s3.58 8 8 8s8-3.58 8-8Z"></path></svg> This feature is not available in Free plan. Please upgrade to any plan.</span></p>
+
+                            <p className="subPara">There is always something you want to move across boards or teams, guess what? “Move cards” <br />feature will allow you to do that. You can move any card on the board from one board to another <br />board or team</p>
+                          <br/>
+                          <h5>Key features:</h5>
+                          <p className="subPara">- Admins can move any card on a board to any other Reetro board in your team or across <br/>multiple teams</p>
+                         <div style={{textAlign:"center"}}>
+                          <button style={{border:"none"}}><span style={{backgroundColor:"#0000FF", color:"white", borderRadius:"5px", padding:"0.3em"}}>Upgrade</span></button>
+                          </div>
+                          </div>
+                        </Modal>
+
+                        <Modal
+                          open={this.state.export}
+                          onClose={this.onCloseExport}
+                        >
+                          <div>
+                            <h3 className="moveHead">Integrations</h3>
+                            <p className="movePara">Seamless single click integrations with your favorite Agile tools</p>
+                            <p className="movePara"><span style={{backgroundColor:"#f2c94c", color:"white", borderRadius:"5px", padding:"0.3em"}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7v2h2V7h-2m3 10v-2h-1v-4h-3v2h1v2h-1v2h4m8-5c0 5.5-4.5 10-10 10S2 17.5 2 12S6.5 2 12 2s10 4.5 10 10m-2 0c0-4.42-3.58-8-8-8s-8 3.58-8 8s3.58 8 8 8s8-3.58 8-8Z"></path></svg> This feature is not available in Free plan. Please upgrade to any plan.</span></p>
+
+                            <p className="subPara">Reetro integrates with popular tools like Atlassian Jira, AzureDevops and Confluence, Trello, Teams and Slack You can export cards and action items as user stories in your Jira project with a single click</p>
+                          <br/>
+                          <p className="subPara">Simply click on an action item and choose “Export to Jira” and boom your comment card or action item is created as a Task in your Jira project</p>
+                          <br/>
+                          <h5>Key features:</h5>
+                          <p className="subPara">- Admin can configure API integration with JIRA for a single team or whole organization</p>
+<p className="subPara">- Admin can configure API integration with Azure DevOps</p>
+<p className="subPara">- Export Comment cards or Action items as (Task, subTask, bug or issue) in JIRA or Azure Devops</p>
+<p className="subPara">- Push team notifications to your Slack channel or Microsoft Teams</p>
+<p className="subPara">- Send Polls, surveys and health checks to Microsoft Teams or Slack</p>
+<p className="subPara">- Export all the retrospective data from Reetro to your Confluence page</p>
+<p className="subPara">- Export all the retrospective data from Reetro to Trello</p>
+<br/>
+<h5>Availability:</h5>
+<br/>
+<p className="subPara">- Set up by: Only Admin and Super Admin in the team can configure the integration but all other users can export any comment or action item to Jira or Azure DevOps</p>
+                         <div style={{textAlign:"center"}}>
+                          <button style={{border:"none"}}><span style={{backgroundColor:"#0000FF", color:"white", borderRadius:"5px", padding:"0.3em"}}>Upgrade</span></button>
+                          </div>
+                          </div>
+                        </Modal>
+
+                        <Modal
+                          open={this.state.history}
+                          onClose={this.onCloseHistory}
+                        >
+                          <div>
+                            <h3 className="moveHead">Show History</h3>
+                            <p className="movePara">Dig deep into the history of each card</p>
+                            <p className="movePara"><span style={{backgroundColor:"#f2c94c", color:"white", borderRadius:"5px", padding:"0.3em"}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7v2h2V7h-2m3 10v-2h-1v-4h-3v2h1v2h-1v2h4m8-5c0 5.5-4.5 10-10 10S2 17.5 2 12S6.5 2 12 2s10 4.5 10 10m-2 0c0-4.42-3.58-8-8-8s-8 3.58-8 8s3.58 8 8 8s8-3.58 8-8Z"></path></svg> This feature is not available in Free plan. Please upgrade to any plan.</span></p>
+
+                            <p className="subPara">Show history feature will allow the admins to get a complete overview of all the edits and changes dones on an individual card</p>
+                          <br/>
+                          <h5>Key features:</h5>
+                          <p className="subPara">- Admins can click on “Show history” on each card and it will show the details of the card history</p>
+
+                       <div style={{textAlign:"center"}}>
+                          <button style={{border:"none"}}><span style={{backgroundColor:"#0000FF", color:"white", borderRadius:"5px", padding:"0.3em"}}>Upgrade</span></button>
+                          </div>
+                          </div>
+                        </Modal>
                 </div>
               </div>
             </div>

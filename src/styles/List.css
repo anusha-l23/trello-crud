@@ -57,7 +57,12 @@
   border:none;
   background: #dfe3e6;
 }
-
+.lists__menu-btn4 {
+  padding: 4px 0px 4px 8px;
+  margin-right:2px;
+  border:none;
+  background: #dfe3e6;
+}
 .lists__menu-btn1 {
   font-size: 1rem;
   padding: 0px 2px 0px 2px;

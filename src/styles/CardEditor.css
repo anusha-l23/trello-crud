@@ -55,12 +55,20 @@
 }
 
 .width{
-  width: 100%;
-  margin-top: 2rem;
+  
+   margin-top: 8rem; 
   padding-top:1em;
   padding-bottom:2em;
-  
-  border-radius: 8px;
+
+}
+
+.comment{
+  width: 25em;
+  padding-top:0.5em;
+  padding-bottom:0em;
+  outline: none;
+  border:none;
+  border-top:1px solid #a0a3bd;
 }
 .rounded-dashed{
   border-radius: 50%;
