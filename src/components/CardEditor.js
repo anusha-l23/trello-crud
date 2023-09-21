@@ -4,7 +4,7 @@ import "react-responsive-modal/styles.css";
 import React, { Component } from "react";
 import EditButtons from "./EditButtons";
 import giphy from "../assets/giphy.gif";
-import Picker from "emoji-picker-react";
+import { Picker } from 'emoji-mart';
 import axios from "axios";
 class CardEditor extends Component {
   state = {
@@ -21,17 +21,31 @@ class CardEditor extends Component {
     profile: false,
     name: false,
     gif: false,
-    randomGif:"",
+    randomGif: "",
     kudos: false,
     openModalPoll: false,
     openModalDraw: false,
     isHover6: false,
     showPicker: false,
   };
-onEmojiClick = (emojiObject, event) => {
-  this.setState({text: prev => prev + emojiObject.emoji});
-  this.setState({showPicker: false})
-} 
+  
+
+  handleEmojiSelect = (emoji) => {
+      const { text } = this.state;
+      const newText = text + emoji.native;
+  
+      this.setState({
+        text: newText,
+        showEmojiPicker: false,
+      });
+    };
+  
+  toggleEmojiPicker = () => {
+    this.setState((prevState) => ({
+      showPicker: !prevState.showPicker,
+    }));
+  };
+
   toggleKudos = () => {
     this.setState({ kudos: true });
   };
@@ -87,11 +101,11 @@ onEmojiClick = (emojiObject, event) => {
     this.setState({ openModalDraw: false });
   };
   handleChangeText = (event) => {
-    this.setState({ text: event.target.value})
-};
-// handleChangeGif = () => {
-//   `${this.state.randomGif}`
-// };
+    this.setState({ text: event.target.value })
+  };
+  // handleChangeGif = () => {
+  //   `${this.state.randomGif}`
+  // };
 
   onEnter = (e) => {
     const { text } = this.state;
@@ -99,6 +113,7 @@ onEmojiClick = (emojiObject, event) => {
     if (e.keyCode === 13) {
       e.preventDefault();
       this.props.onSave(text);
+      this.setState({ text: "" })
     }
   };
 
@@ -138,16 +153,20 @@ onEmojiClick = (emojiObject, event) => {
     this.setState({ isHover5: false });
   };
 
-handleGif = () => {
-  axios
-  .get(`https://api.giphy.com/v1/gifs/random?api_key=HNBQ1lw4HS820hCCOn5Z6HB1cap7q18W`)
-  .then((response) => {
-    this.setState({randomGif: response.data.data.images.fixed_height.url});
-  })
-  .catch((error) => {
-    console.error('Error fetching random GIF:', error);
-  });
-}
+  handleGif = () => {
+    axios
+      .get(`https://api.giphy.com/v1/gifs/random?api_key=HNBQ1lw4HS820hCCOn5Z6HB1cap7q18W`)
+      .then((response) => {
+        this.setState((prevState)=>({ 
+          text: `${prevState.text} ${response.data.data.images.fixed_height.url}`,
+          randomGif: response.data.data.images.fixed_height.url
+         }));
+
+    })
+      .catch((error) => {
+        console.error('Error fetching random GIF:', error);
+      });
+  }
 
 
 
@@ -173,22 +192,28 @@ handleGif = () => {
       toggleMove,
     } = this.props;
 
+
     return (
       <div className="Edit-Card lists__menu">
         <div className="Card">
           <div className="emoji-container">
-      
-        <input
-            autoFocus
-            className="Edit-Card-Textarea"
-            placeholder="Please enter to Add Card"
-            value={text}
-            style={{marginTop:"15px"}}
-            onChange={this.handleChangeText}
-            onKeyDown={this.onEnter}
-          /> 
-  
-   </div>
+          <p style={{textAlign:"right", margin:"0px", color:"gray"}} onClick={this.toggleEmojiPicker}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><g fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75a.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25a.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path></g></svg></p>
+            <input
+              autoFocus
+              className="Edit-Card-Textarea"
+              placeholder="Please enter to Add Card"
+              value={text}
+              style={{ marginTop: "15px" }}
+              onChange={this.handleChangeText}
+              onKeyDown={this.onEnter}
+            />
+          
+            {this.state.showPicker && (
+              <div>
+                <Picker onSelect={this.handleEmojiSelect} />
+              </div>
+            )}
+          </div>
           {action && !this.state.name && (
             <svg
               className="rounded-dashed"
@@ -277,7 +302,7 @@ handleGif = () => {
               </div>
             </>
           )} */}
-      {this.state.randomGif && <img src={this.state.randomGif} alt="Random GIF" />}
+          {this.state.randomGif && <img src={this.state.randomGif} alt="Random GIF" />}
           {this.state.kudos && (
             <div className="flex-start" style={{ marginTop: "0.5em" }}>
               <svg
@@ -330,8 +355,8 @@ handleGif = () => {
                 onMouseEnter={this.handleMouseEnter2}
                 onMouseLeave={this.handleMouseLeave2}
                 style={{ color: isHover2 ? "#0000FF" : "#c4c4ff" }}
-               // onClick={this.toggleGif}
-               onClick={this.handleGif}
+                // onClick={this.toggleGif}
+                onClick={this.handleGif}
                 xmlns="http://www.w3.org/2000/svg"
                 width="1.5em"
                 height="1.5em"
@@ -623,11 +648,11 @@ handleGif = () => {
           ) : (
             <div className="flex-start">
               <div className="">anusha L.</div>
-</div>
+            </div>
           )}
-              
+
         </div>
-{/*  
+        {/*  
         <EditButtons
           handleSave={() => onSave(text)}
           saveLabel={adding ? "Add card" : "Save"}

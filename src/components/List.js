@@ -7,7 +7,7 @@ import Card from "./Card";
 import CardEditor from "./CardEditor";
 import ListEditor from "./ListEditor";
 import shortid from "shortid";
-
+import {toast} from "react-toastify";
 class List extends Component {
   state = {
     editingTitle: false,
@@ -84,6 +84,10 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
     dispatch({
       type: "CHANGE_LIST_TITLE",
       payload: { listId, listTitle: title },
+    });
+    toast.success('Success! Column updated successfully!'
+    , {
+      position: toast.POSITION.BOTTOM_RIGHT,
     });
   };
 

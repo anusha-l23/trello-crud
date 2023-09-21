@@ -140,6 +140,10 @@ class Card extends Component {
       type: "DELETE_CARD",
       payload: { cardId: card._id, listId },
     });
+    toast.success('Success! Card removed successfully!'
+    , {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
   };
 
   updateInput(e) {
@@ -166,11 +170,15 @@ class Card extends Component {
         list,
         userInput: "",
       });
+      toast.success('Success! Comment added successfully...!'
+      , {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   }
 
   render() {
-    const { card, index, toggleMove } = this.props;
+    const { card, index, toggleMove, randomGif } = this.props;
     console.log(card, "card data");
 
     const { editing, hoverThumb, hoverThumb1 } = this.state;
@@ -191,6 +199,7 @@ class Card extends Component {
                 style={{ backgroundColor: this.state.color, padding: "1em" }}
               >
                 {card?.text}
+                {randomGif && <img src={randomGif} alt="Random GIF" />}
               </p>
               <hr style={{ marginBottom: "2em", marginTop: "-1em" }} />
               <div className="lists__menu">
@@ -236,6 +245,7 @@ class Card extends Component {
                           <input
                             type="text"
                             className="comment"
+                            placeholder="Add Comment..."
                             value={this.state.userInput}
                             onChange={(e) => this.updateInput(e)}
 
