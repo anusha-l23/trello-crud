@@ -756,7 +756,7 @@ class CardEditor extends Component {
                 <CanvasDraw
                   ref={(canvasDraw) => (this.saveableCanvas = canvasDraw)}
                   canvasWidth={700}
-                  canvasHeight={700}
+                  canvasHeight={500}
                   brushColor={this.state.isEraser ? '#ffffff' : this.state.brushColor}
                   brushRadius={this.state.brushRadius}
                   hideGrid
