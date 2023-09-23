@@ -6,6 +6,7 @@ import EditButtons from "./EditButtons";
 import giphy from "../assets/giphy.gif";
 import { Picker } from 'emoji-mart';
 import axios from "axios";
+import 'emoji-mart/css/emoji-mart.css'
 class CardEditor extends Component {
   state = {
     text: this.props.text || "",
@@ -27,19 +28,23 @@ class CardEditor extends Component {
     openModalDraw: false,
     isHover6: false,
     showPicker: false,
+    selectedEmoji: null,
+    searchQuery: '', 
+    searchedGif: '',
   };
-  
+
 
   handleEmojiSelect = (emoji) => {
-      const { text } = this.state;
-      const newText = text + emoji.native;
-  
-      this.setState({
-        text: newText,
-        showEmojiPicker: false,
-      });
-    };
-  
+    const { text } = this.state;
+    const newText = text + emoji.native;
+
+    this.setState({
+      text: newText,
+      showEmojiPicker: false,
+      selectedEmoji: null
+    });
+  };
+
   toggleEmojiPicker = () => {
     this.setState((prevState) => ({
       showPicker: !prevState.showPicker,
@@ -157,18 +162,30 @@ class CardEditor extends Component {
     axios
       .get(`https://api.giphy.com/v1/gifs/random?api_key=HNBQ1lw4HS820hCCOn5Z6HB1cap7q18W`)
       .then((response) => {
-        this.setState((prevState)=>({ 
+        this.setState((prevState) => ({
           text: `${prevState.text} ${response.data.data.images.fixed_height.url}`,
           randomGif: response.data.data.images.fixed_height.url
-         }));
+        }));
 
-    })
+      })
       .catch((error) => {
         console.error('Error fetching random GIF:', error);
       });
   }
 
-
+  handleGifSearch = () => {
+    const { searchQuery } = this.state;
+    axios
+      .get(`https://api.giphy.com/v1/gifs/random?api_key=HNBQ1lw4HS820hCCOn5Z6HB1cap7q18W&q=${searchQuery}`)
+      .then((response) => {
+        this.setState({
+         randomGif: response.data.data.images.fixed_height.url,
+        });
+      })
+      .catch((error) => {
+        console.error('Error fetching searched GIF:', error);
+      });
+  };
 
   render() {
     const {
@@ -196,24 +213,23 @@ class CardEditor extends Component {
     return (
       <div className="Edit-Card lists__menu">
         <div className="Card">
-          <div className="emoji-container">
-          <p style={{textAlign:"right", margin:"0px", color:"gray"}} onClick={this.toggleEmojiPicker}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><g fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75a.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25a.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path></g></svg></p>
-            <input
-              autoFocus
-              className="Edit-Card-Textarea"
-              placeholder="Please enter to Add Card"
-              value={text}
-              style={{ marginTop: "15px" }}
-              onChange={this.handleChangeText}
-              onKeyDown={this.onEnter}
-            />
-          
-            {this.state.showPicker && (
-              <div>
-                <Picker onSelect={this.handleEmojiSelect} />
-              </div>
-            )}
-          </div>
+          <p style={{ textAlign: "right", margin: "0px", color: "gray" }} onClick={this.toggleEmojiPicker}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><g fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75a.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25a.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path></g></svg></p>
+          <input
+            autoFocus
+            className="Edit-Card-Textarea"
+            //   placeholder="Please enter to Add Card"
+            value={text}
+            style={{ marginTop: "15px" }}
+            onChange={this.handleChangeText}
+            onKeyDown={this.onEnter}
+          />
+
+          {this.state.showPicker && (
+            <div>
+              <Picker onSelect={this.handleEmojiSelect} style={{ width:"100%" }}/>
+            </div>
+          )}
+
           {action && !this.state.name && (
             <svg
               className="rounded-dashed"
@@ -302,7 +318,26 @@ class CardEditor extends Component {
               </div>
             </>
           )} */}
-          {this.state.randomGif && <img src={this.state.randomGif} alt="Random GIF" />}
+          {this.state.randomGif && (
+            <>
+            <div style={{textAlign:"center", marginTop:"5px"}}>
+          <img src={this.state.randomGif} alt="Random GIF" style={{width:"70%"}}/>
+          {/* {this.state.searchedGif && <img src={this.state.searchedGif} alt="Random GIF" style={{width:"70%", marginTop:"6px"}}/>}
+           */}
+          </div>
+          <div className="d-flex mt-4 text-center p-2 gap-4">
+          <input
+          type="text"
+          style={{border:"none", borderBottom:"1px solid gray", width:"60%", fontSize: "90%", outline:"none"}}
+          placeholder="Search GIF..."
+          value={this.state.searchQuery}
+          onChange={(e) => this.setState({ searchQuery: e.target.value })}
+        />
+        <button onClick={this.handleGifSearch} style={{border:"1px solid blue", borderRadius:"10px", fontSize: "90%", color:"blue", padding:"0.5em"}}>Shuffle</button>
+        </div>
+        </>
+          )}
+  
           {this.state.kudos && (
             <div className="flex-start" style={{ marginTop: "0.5em" }}>
               <svg

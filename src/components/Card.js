@@ -199,7 +199,6 @@ class Card extends Component {
                 style={{ backgroundColor: this.state.color, padding: "1em" }}
               >
                 {card?.text}
-                {randomGif && <img src={randomGif} alt="Random GIF" />}
               </p>
               <hr style={{ marginBottom: "2em", marginTop: "-1em" }} />
               <div className="lists__menu">
@@ -591,7 +590,15 @@ class Card extends Component {
                             paddingRight: "9px",
                             borderRadius: "6px",
                           }}
-                          onClick={() => this.setState({ color: "#e8f0fd" })}
+                          onClick={() => 
+                            {
+                              this.setState({ color: "#e8f0fd" })
+                              toast.success('Success! Card updated successfully!'
+                              , {
+                                position: toast.POSITION.BOTTOM_RIGHT,
+                              });
+                          }
+                          }
                         ></span>
                         <span
                           style={{
@@ -601,7 +608,13 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => this.setState({ color: "#f2f2fe" })}
+                          onClick={() => {
+                            this.setState({ color: "#f2f2fe" })
+                            toast.success('Success! Card updated successfully!'
+                            , {
+                              position: toast.POSITION.BOTTOM_RIGHT,
+                            });
+                          }}
                         ></span>
                         <span
                           style={{
@@ -612,7 +625,15 @@ class Card extends Component {
                             marginLeft: "0.5em",
                           }}
 
-                          onClick={() => this.setState({ color: "#f1f9e6" })}
+                          onClick={() => 
+                            {
+                            this.setState({ color: "#f1f9e6" })
+                            toast.success('Success! Card updated successfully!'
+                            , {
+                              position: toast.POSITION.BOTTOM_RIGHT,
+                            });
+                            }
+                          }
                         ></span>
                         <span
                           style={{
@@ -622,7 +643,15 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => this.setState({ color: "#fcf1e3" })}
+                          onClick={() => 
+                            {
+                            this.setState({ color: "#fcf1e3" })
+                            toast.success('Success! Card updated successfully!'
+                            , {
+                              position: toast.POSITION.BOTTOM_RIGHT,
+                            });
+                            }
+                          }
                         ></span>
                         <span
                           style={{
@@ -632,7 +661,15 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => this.setState({ color: "#fdf3f1" })}
+                          onClick={() => 
+                            {
+                            this.setState({ color: "#fdf3f1" })
+                            toast.success('Success! Card updated successfully!'
+                            , {
+                              position: toast.POSITION.BOTTOM_RIGHT,
+                            });
+                            }
+                          }
 
                         ></span>
                         <span
@@ -643,7 +680,15 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => this.setState({ color: "#f8e9e6" })}
+                          onClick={() => 
+                            {
+                            this.setState({ color: "#f8e9e6" })
+                            toast.success('Success! Card updated successfully!'
+                            , {
+                              position: toast.POSITION.BOTTOM_RIGHT,
+                            });
+                            }
+                          }
                         ></span>
                         <span
                           style={{
@@ -653,7 +698,15 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => this.setState({ color: "#dedef1" })}
+                          onClick={() => 
+                            {
+                            this.setState({ color: "#dedef1" })
+                            toast.success('Success! Card updated successfully!'
+                            , {
+                              position: toast.POSITION.BOTTOM_RIGHT,
+                            });
+                            }
+                          }
                         ></span>
                       </div>
                     </div>

@@ -24,9 +24,9 @@ class ListEditor extends Component {
           value={title}
           onChange={handleChangeTitle}
           onKeyDown={this.onEnter}
-          style={{ width: deleteList ? 220 : 245 }}
+      style={{  border: "none", borderBottom:"1px solid gray", outline:"none"}}
         />
-        {deleteList && (
+        {/* {deleteList && (
           // <ion-icon name="trash" onClick={deleteList} />
           <div onClick={deleteList}>
             <svg
@@ -45,7 +45,9 @@ class ListEditor extends Component {
               ></path>
             </svg>
           </div>
-        )}
+        )} */}
+
+        
       </div>
     );
   }

@@ -145,6 +145,8 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
             {...provided.dragHandleProps}
             className="List"
           >
+             <div className="lists__menu">
+                <div className="flex">
             {editingTitle ? (
               <ListEditor
                 list={list}
@@ -155,11 +157,11 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                 deleteList={this.deleteList}
               />
             ) : (
-              <div className="lists__menu">
-                <div className="flex">
+             
                   <div className="List-Title" onClick={this.toggleEditingTitle}>
                     {list.title}
                   </div>
+            )}
                   <div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -431,7 +433,7 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                   )}
                 </div>
               </div>
-            )}
+            
 
             <Droppable droppableId={list._id} index={index}>
               {(provided, _snapshot) => (
