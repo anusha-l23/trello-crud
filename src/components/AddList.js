@@ -47,6 +47,6 @@ class AddList extends Component {
       </div>
     );
   }
-
+}
 
 export default connect()(AddList);
