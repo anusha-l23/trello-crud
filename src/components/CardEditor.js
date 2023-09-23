@@ -7,6 +7,7 @@ import giphy from "../assets/giphy.gif";
 import { Picker } from 'emoji-mart';
 import axios from "axios";
 import 'emoji-mart/css/emoji-mart.css'
+import CanvasDraw from 'react-canvas-draw';
 class CardEditor extends Component {
   state = {
     text: this.props.text || "",
@@ -29,10 +30,63 @@ class CardEditor extends Component {
     isHover6: false,
     showPicker: false,
     selectedEmoji: null,
-    searchQuery: '', 
+    searchQuery: '',
     searchedGif: '',
+    brushColor: '#000000', // Default brush color
+    brushRadius: 3, // Default brush size
+    isEraser: false, // Whether the eraser is active
+    brushToggle: false,
+    brushColorToggle: false,
   };
 
+  backgroundImageUrl = '../assets/color-circle.png'
+  containerStyle = {
+    backgroundImage: `url(${this.backgroundImageUrl})`, 
+  backgroundRepeat: "no-repeat", 
+  width: "25px", 
+  height: "25px", 
+  cursor: "pointer"
+}
+
+  brushToggle = () => {
+    this.setState({
+      brushToggle: true,
+      brushColorToggle:false
+    });
+  };
+  brushColorToggle = () => {
+    this.setState({
+      brushColorToggle: true,
+      brushToggle: false,
+    });
+  };
+
+  handleSaveClick = () => {
+    // Access the CanvasDraw component using the ref and call the save method
+    if (this.saveableCanvas.current) {
+      const canvasDrawInstance = this.saveableCanvas.current;
+      const canvasData = canvasDrawInstance.getSaveData();
+      // You can save the `canvasData` to your server, download it, or perform any other actions.
+      // Here, we'll simply log it to the console.
+      console.log(canvasData,"canvas");
+    }
+  };
+
+  handleColorChange = (event) => {
+    this.setState({ brushColor: event.target.value });
+  };
+
+  // Handle brush size change
+  handleSizeChange = (event) => {
+    this.setState({ brushRadius: parseInt(event.target.value, 10) });
+  };
+
+  // Toggle eraser mode
+  toggleEraser = () => {
+    this.setState((prevState) => ({
+      isEraser: !prevState.isEraser,
+    }));
+  };
 
   handleEmojiSelect = (emoji) => {
     const { text } = this.state;
@@ -179,7 +233,7 @@ class CardEditor extends Component {
       .get(`https://api.giphy.com/v1/gifs/random?api_key=HNBQ1lw4HS820hCCOn5Z6HB1cap7q18W&q=${searchQuery}`)
       .then((response) => {
         this.setState({
-         randomGif: response.data.data.images.fixed_height.url,
+          randomGif: response.data.data.images.fixed_height.url,
         });
       })
       .catch((error) => {
@@ -226,7 +280,7 @@ class CardEditor extends Component {
 
           {this.state.showPicker && (
             <div>
-              <Picker onSelect={this.handleEmojiSelect} style={{ width:"100%" }}/>
+              <Picker onSelect={this.handleEmojiSelect} style={{ width: "100%" }} />
             </div>
           )}
 
@@ -320,24 +374,24 @@ class CardEditor extends Component {
           )} */}
           {this.state.randomGif && (
             <>
-            <div style={{textAlign:"center", marginTop:"5px"}}>
-          <img src={this.state.randomGif} alt="Random GIF" style={{width:"70%"}}/>
-          {/* {this.state.searchedGif && <img src={this.state.searchedGif} alt="Random GIF" style={{width:"70%", marginTop:"6px"}}/>}
+              <div style={{ textAlign: "center", marginTop: "5px" }}>
+                <img src={this.state.randomGif} alt="Random GIF" style={{ width: "70%" }} />
+                {/* {this.state.searchedGif && <img src={this.state.searchedGif} alt="Random GIF" style={{width:"70%", marginTop:"6px"}}/>}
            */}
-          </div>
-          <div className="d-flex mt-4 text-center p-2 gap-4">
-          <input
-          type="text"
-          style={{border:"none", borderBottom:"1px solid gray", width:"60%", fontSize: "90%", outline:"none"}}
-          placeholder="Search GIF..."
-          value={this.state.searchQuery}
-          onChange={(e) => this.setState({ searchQuery: e.target.value })}
-        />
-        <button onClick={this.handleGifSearch} style={{border:"1px solid blue", borderRadius:"10px", fontSize: "90%", color:"blue", padding:"0.5em"}}>Shuffle</button>
-        </div>
-        </>
+              </div>
+              <div className="d-flex mt-4 text-center p-2 gap-4">
+                <input
+                  type="text"
+                  style={{ border: "none", borderBottom: "1px solid gray", width: "60%", fontSize: "90%", outline: "none" }}
+                  placeholder="Search GIF..."
+                  value={this.state.searchQuery}
+                  onChange={(e) => this.setState({ searchQuery: e.target.value })}
+                />
+                <button onClick={this.handleGifSearch} style={{ border: "1px solid blue", borderRadius: "10px", fontSize: "90%", color: "blue", padding: "0.5em" }}>Shuffle</button>
+              </div>
+            </>
           )}
-  
+
           {this.state.kudos && (
             <div className="flex-start" style={{ marginTop: "0.5em" }}>
               <svg
@@ -566,7 +620,24 @@ class CardEditor extends Component {
               </svg>
               <Modal open={this.state.openModalDraw} onClose={this.onCloseDraw}>
                 <h3 className="text-center">Draw your feelings</h3>
-                <div className="center">
+
+                {/* <div>
+
+                  <input
+                    type="range"
+                    min="1"
+                    max="20"
+                    step="1"
+                    value={this.state.brushRadius}
+                    onChange={this.handleSizeChange}
+                  />
+
+                  <input
+                    type="color"
+                    value={this.state.brushColor}
+                    onChange={this.handleColorChange}
+                  />
+
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="1.5em"
@@ -577,6 +648,7 @@ class CardEditor extends Component {
                       fontWeight: "bold",
                       marginLeft: "4em",
                     }}
+                    onClick={() => this.saveableCanvas.clear()}
                   >
                     <path
                       fill="none"
@@ -589,6 +661,7 @@ class CardEditor extends Component {
                   </svg>
                   <svg
                     style={{ color: "#273081" }}
+                    onClick={() => this.saveableCanvas.undo()}
                     xmlns="http://www.w3.org/2000/svg"
                     width="2em"
                     height="2em"
@@ -599,26 +672,114 @@ class CardEditor extends Component {
                       d="M5.34 4.468h2v2.557a7 7 0 1 1-1.037 10.011l1.619-1.185a5 5 0 1 0 .826-7.384h2.591v2h-6v-6Z"
                     ></path>
                   </svg>
-                </div>
 
-                <div class="pallete">
-                  <div class="color" style={{ backgroundColor: "gray" }}></div>
+                </div> */}
+
+                <div className="canvas_container__ElvIb">
+                  <div className="canvas_toolBar__ikVUr">
+                    <div className="canvas_item__ptBji">
+                      <div className="tooltip_tooltipContainer__s90Dd">
+                        <div className="tooltip_tooltipText__1VgGi tooltip_tooltipBottomCenter__byOdK">Brush Size</div>
+                        <svg onClick={this.brushToggle} xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><path fill="currentColor" d="M6 21q-1.125 0-2.225-.55T2 19q.65 0 1.325-.513T4 17q0-1.25.875-2.125T7 14q1.25 0 2.125.875T10 17q0 1.65-1.175 2.825T6 21Zm5.75-6L9 12.25l8.95-8.95q.275-.275.688-.288t.712.288l1.35 1.35q.3.3.3.7t-.3.7L11.75 15Z"></path></svg>
+                      </div>
+                    </div>
+                    <div className="canvas_line__ycrH4"></div>
+                    <div className="canvas_item__ptBji">
+                      <div className="tooltip_tooltipContainer__s90Dd">
+                        <div className="tooltip_tooltipText__1VgGi tooltip_tooltipBottomCenter__byOdK">Brush Color</div>
+                        <svg style={{borderBottom:`4px solid ${this.state.brushColor}`}} onClick={this.brushColorToggle} xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 256 256"><path fill="currentColor" d="M224.49 76.2L179.8 31.51a12 12 0 0 0-17 0L39.51 154.83a12 12 0 0 0-3.51 8.48V208a12 12 0 0 0 12 12h44.69a11.93 11.93 0 0 0 8.48-3.51l88.67-88.67l5.73 23l-38.39 38.4a4 4 0 1 0 5.65 5.66l40-40a4 4 0 0 0 1.06-3.8l-7.46-29.8l28.06-28.06a12 12 0 0 0 0-17.02ZM44 208v-38.34L86.35 212H48a4 4 0 0 1-4-4Zm52 2.34L45.66 160L136 69.66L186.35 120ZM218.83 87.51L192 114.34L141.66 64l26.83-26.83a4 4 0 0 1 5.66 0l44.68 44.69a4 4 0 0 1 0 5.65Z"></path></svg>
+                      </div></div>
+                    <div className="canvas_line__ycrH4"></div>
+                    <div className="canvas_item__ptBji">
+                      <div className="tooltip_tooltipContainer__s90Dd">
+                        <div className="tooltip_tooltipText__1VgGi tooltip_tooltipBottomCenter__byOdK">Eraser</div>
+                        <svg  onClick={() => this.saveableCanvas.clear()} xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><g fill="none"><path fill="currentColor" d="m5.505 11.41l.53.53l-.53-.53ZM3 14.952h-.75H3ZM9.048 21v.75V21ZM11.41 5.505l-.53-.53l.53.53Zm1.831 12.34a.75.75 0 0 0 1.06-1.061l-1.06 1.06ZM7.216 9.697a.75.75 0 1 0-1.06 1.061l1.06-1.06Zm10.749 2.362l-5.905 5.905l1.06 1.06l5.905-5.904l-1.06-1.06Zm-11.93-.12l5.905-5.905l-1.06-1.06l-5.905 5.904l1.06 1.06Zm0 6.025c-.85-.85-1.433-1.436-1.812-1.933c-.367-.481-.473-.79-.473-1.08h-1.5c0 .749.312 1.375.78 1.99c.455.596 1.125 1.263 1.945 2.083l1.06-1.06Zm-1.06-7.086c-.82.82-1.49 1.488-1.945 2.084c-.468.614-.78 1.24-.78 1.99h1.5c0-.29.106-.6.473-1.08c.38-.498.962-1.083 1.812-1.933l-1.06-1.06Zm7.085 7.086c-.85.85-1.435 1.433-1.933 1.813c-.48.366-.79.472-1.08.472v1.5c.75 0 1.376-.312 1.99-.78c.596-.455 1.264-1.125 2.084-1.945l-1.06-1.06Zm-7.085 1.06c.82.82 1.487 1.49 2.084 1.945c.614.468 1.24.78 1.989.78v-1.5c-.29 0-.599-.106-1.08-.473c-.497-.38-1.083-.962-1.933-1.812l-1.06 1.06Zm12.99-12.99c.85.85 1.433 1.436 1.813 1.933c.366.481.472.79.472 1.08h1.5c0-.749-.312-1.375-.78-1.99c-.455-.596-1.125-1.263-1.945-2.083l-1.06 1.06Zm1.06 7.086c.82-.82 1.49-1.488 1.945-2.084c.468-.614.78-1.24.78-1.99h-1.5c0 .29-.106.6-.473 1.08c-.38.498-.962 1.083-1.812 1.933l1.06 1.06Zm0-8.146c-.82-.82-1.487-1.49-2.084-1.945c-.614-.468-1.24-.78-1.989-.78v1.5c.29 0 .599.106 1.08.473c.497.38 1.083.962 1.933 1.812l1.06-1.06Zm-7.085 1.06c.85-.85 1.435-1.433 1.933-1.812c.48-.367.79-.473 1.08-.473v-1.5c-.75 0-1.376.312-1.99.78c-.596.455-1.264 1.125-2.084 1.945l1.06 1.06Zm2.362 10.749L7.216 9.698l-1.06 1.061l7.085 7.085l1.06-1.06Z"></path><path stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" d="M9 21h12"></path></g></svg>
+                      </div></div>
+                    <div className="canvas_line__ycrH4"></div>
+                    <div className="canvas_item__ptBji">
+                      <div className="tooltip_tooltipContainer__s90Dd">
+                        <div className="tooltip_tooltipText__1VgGi tooltip_tooltipBottomCenter__byOdK">Undo</div>
+                        <svg onClick={() => this.saveableCanvas.undo()} xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><path fill="currentColor" d="M5.34 4.468h2v2.557a7 7 0 1 1-1.037 10.011l1.619-1.185a5 5 0 1 0 .826-7.384h2.591v2h-6v-6Z"></path></svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             
+                {this.state.brushToggle && 
+                <>
+                  <div className="canvas_container__ElvIb1">
+                  <div className="canvas_toolBar__ikVUr1">
+                <h3>Brush Size</h3>
+                <input
+                  type="range"
+                  min="1"
+                  max="20"
+                  step="1"
+                  value={this.state.brushRadius}
+                  onChange={this.handleSizeChange}
+                />
+                </div>
+                </div>
+              
+                </>
+                }
+{this.state.brushColorToggle && 
+<>
+
+                  {/* <h3>Color</h3>
+<input
+                    type="color"
+                    value={this.state.brushColor}
+                    onChange={this.handleColorChange}
+                  /> */}
+               <div class="popups_colorPickerContainer__190uR">
+                <div><p>Color</p>
+               <div style={{display: "flex", gap: "12px", alignItems: "center"}}>
+                <div style={this.containerStyle}> 
+                  <input type="color" style={{opacity: "0.3", cursor: "pointer"}} 
+                      value={this.state.brushColor}
+                    onChange={this.handleColorChange}/>
+                    </div>
+               <div class="popups_line__dMT9w"></div>
+               <div class="popups_color__2gzuz" style={{background: "rgb(243, 198, 140)", border: "2px solid transparent"}}></div>
+               <div class="popups_color__2gzuz" style={{background: "rgb(143, 182, 245)", border: "2px solid transparent"}}></div>
+               <div class="popups_color__2gzuz" style={{background: "rgb(241, 169, 155)", border: "2px solid transparent"}}></div>
+               <div class="popups_color__2gzuz" style={{background: "rgb(198, 230, 153)", border: "2px solid transparent"}}></div>
+               <div class="popups_color__2gzuz" style={{background: "rgb(150, 150, 247)", border: "2px solid transparent"}}></div>
+               <div class="popups_color__2gzuz" style={{background: "rgb(157, 157, 213)", border: "2px solid transparent"}}></div>
+               <div class="popups_color__2gzuz" style={{background: "rgb(227, 167, 155)", border: "2px solid transparent"}}></div></div>
+               <div class="popups_colorBox__LstkM"></div></div></div>
+                  </>
+                  }
+
+     
+                <CanvasDraw
+                  ref={(canvasDraw) => (this.saveableCanvas = canvasDraw)}
+                  canvasWidth={700}
+                  canvasHeight={700}
+                  brushColor={this.state.isEraser ? '#ffffff' : this.state.brushColor}
+                  brushRadius={this.state.brushRadius}
+                  hideGrid
+                />
+
+                {/* <div className="pallete">
+                  <div className="color" style={{ backgroundColor: "gray" }}></div>
                   <div
-                    class="color"
+                    className="color"
                     style={{ backgroundColor: "orange" }}
                   ></div>
 
-                  <div class="color" style={{ backgroundColor: "cyan" }}></div>
-                  <div class="color" style={{ backgroundColor: "pink" }}></div>
-                  <div class="color" style={{ backgroundColor: "green" }}></div>
-                  <div class="color" style={{ backgroundColor: "blue" }}></div>
-                  <div class="color" style={{ backgroundColor: "blue" }}></div>
-                  <div class="color" style={{ backgroundColor: "pink" }}></div>
+                  <div className="color" style={{ backgroundColor: "cyan" }}></div>
+                  <div className="color" style={{ backgroundColor: "pink" }}></div>
+                  <div className="color" style={{ backgroundColor: "green" }}></div>
+                  <div className="color" style={{ backgroundColor: "blue" }}></div>
+                  <div className="color" style={{ backgroundColor: "blue" }}></div>
+                  <div className="color" style={{ backgroundColor: "pink" }}></div>
                 </div>
-                <div class="brush-thickness">
-                  <div class="range-slider">
+                <div className="brush-thickness">
+                  <div className="range-slider">
                     <input
-                      class="input-range"
+                      className="input-range"
                       orient="vertical"
                       type="range"
                       step="1"
@@ -626,23 +787,23 @@ class CardEditor extends Component {
                       max="10"
                       value="5"
                     />
-                    <span class="range-value"></span>
+                    <span className="range-value"></span>
                   </div>
-                  <div class="thickness-strokes pos-rel">
-                    <div class="ts-10"></div>
-                    <div class="ts-9"></div>
-                    <div class="ts-8"></div>
-                    <div class="ts-7"></div>
-                    <div class="ts-6"></div>
-                    <div class="ts-5"></div>
-                    <div class="ts-4"></div>
-                    <div class="ts-3"></div>
-                    <div class="ts-2"></div>
-                    <div class="ts-1"></div>
+                  <div className="thickness-strokes pos-rel">
+                    <div className="ts-10"></div>
+                    <div className="ts-9"></div>
+                    <div className="ts-8"></div>
+                    <div className="ts-7"></div>
+                    <div className="ts-6"></div>
+                    <div className="ts-5"></div>
+                    <div className="ts-4"></div>
+                    <div className="ts-3"></div>
+                    <div className="ts-2"></div>
+                    <div className="ts-1"></div>
                   </div>
                 </div>
                 <div
-                  class="container"
+                  className="container"
                   style={{ display: "flex", justifyContent: "center" }}
                 >
                   <div
@@ -677,7 +838,11 @@ class CardEditor extends Component {
                 </div>
                 <div className="div">
                   <button className="btn2">save</button>
-                </div>
+                </div> */}
+
+<div style={{textAlign:"center"}}>
+<button className="btn btn-primary" onClick={this.handleSaveClick}>Save</button>
+</div>
               </Modal>
             </div>
           ) : (
