@@ -36,7 +36,7 @@ class Card extends Component {
     export: false,
     loading: false,
     moveCard: false,
-    history:false
+    history: false
   };
 
 
@@ -128,9 +128,9 @@ class Card extends Component {
       payload: { cardId: card?._id, cardText: text },
     });
     toast.success('Success! Card updated successfully!'
-    , {
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
+      , {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
   };
 
   deleteCard = async () => {
@@ -141,9 +141,9 @@ class Card extends Component {
       payload: { cardId: card._id, listId },
     });
     toast.success('Success! Card removed successfully!'
-    , {
-      position: toast.POSITION.BOTTOM_RIGHT,
-    });
+      , {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
   };
 
   updateInput(e) {
@@ -171,14 +171,14 @@ class Card extends Component {
         userInput: "",
       });
       toast.success('Success! Comment added successfully...!'
-      , {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+        , {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
     }
   }
 
   render() {
-    const { card, index, toggleMove, randomGif } = this.props;
+    const { card, index, toggleMove } = this.props;
     console.log(card, "card data");
 
     const { editing, hoverThumb, hoverThumb1 } = this.state;
@@ -590,10 +590,9 @@ class Card extends Component {
                             paddingRight: "9px",
                             borderRadius: "6px",
                           }}
-                          onClick={() => 
-                            {
-                              this.setState({ color: "#e8f0fd" })
-                              toast.success('Success! Card updated successfully!'
+                          onClick={() => {
+                            this.setState({ color: "#e8f0fd" })
+                            toast.success('Success! Card updated successfully!'
                               , {
                                 position: toast.POSITION.BOTTOM_RIGHT,
                               });
@@ -611,9 +610,9 @@ class Card extends Component {
                           onClick={() => {
                             this.setState({ color: "#f2f2fe" })
                             toast.success('Success! Card updated successfully!'
-                            , {
-                              position: toast.POSITION.BOTTOM_RIGHT,
-                            });
+                              , {
+                                position: toast.POSITION.BOTTOM_RIGHT,
+                              });
                           }}
                         ></span>
                         <span
@@ -625,14 +624,13 @@ class Card extends Component {
                             marginLeft: "0.5em",
                           }}
 
-                          onClick={() => 
-                            {
+                          onClick={() => {
                             this.setState({ color: "#f1f9e6" })
                             toast.success('Success! Card updated successfully!'
-                            , {
-                              position: toast.POSITION.BOTTOM_RIGHT,
-                            });
-                            }
+                              , {
+                                position: toast.POSITION.BOTTOM_RIGHT,
+                              });
+                          }
                           }
                         ></span>
                         <span
@@ -643,14 +641,13 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => 
-                            {
+                          onClick={() => {
                             this.setState({ color: "#fcf1e3" })
                             toast.success('Success! Card updated successfully!'
-                            , {
-                              position: toast.POSITION.BOTTOM_RIGHT,
-                            });
-                            }
+                              , {
+                                position: toast.POSITION.BOTTOM_RIGHT,
+                              });
+                          }
                           }
                         ></span>
                         <span
@@ -661,14 +658,13 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => 
-                            {
+                          onClick={() => {
                             this.setState({ color: "#fdf3f1" })
                             toast.success('Success! Card updated successfully!'
-                            , {
-                              position: toast.POSITION.BOTTOM_RIGHT,
-                            });
-                            }
+                              , {
+                                position: toast.POSITION.BOTTOM_RIGHT,
+                              });
+                          }
                           }
 
                         ></span>
@@ -680,14 +676,13 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => 
-                            {
+                          onClick={() => {
                             this.setState({ color: "#f8e9e6" })
                             toast.success('Success! Card updated successfully!'
-                            , {
-                              position: toast.POSITION.BOTTOM_RIGHT,
-                            });
-                            }
+                              , {
+                                position: toast.POSITION.BOTTOM_RIGHT,
+                              });
+                          }
                           }
                         ></span>
                         <span
@@ -698,91 +693,90 @@ class Card extends Component {
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => 
-                            {
+                          onClick={() => {
                             this.setState({ color: "#dedef1" })
                             toast.success('Success! Card updated successfully!'
-                            , {
-                              position: toast.POSITION.BOTTOM_RIGHT,
-                            });
-                            }
+                              , {
+                                position: toast.POSITION.BOTTOM_RIGHT,
+                              });
+                          }
                           }
                         ></span>
                       </div>
                     </div>
                   )}
-                   <Modal
-                          open={this.state.moveCard}
-                          onClose={this.onCloseMoveCard}
-                        >
-                          <div>
-                            <h3 className="moveHead">Move Cards</h3>
-                            <p className="movePara">Run retrospectives even when you are sleeping</p>
-                            <p className="movePara"><span style={{backgroundColor:"#f2c94c", color:"white", borderRadius:"5px", padding:"0.3em"}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7v2h2V7h-2m3 10v-2h-1v-4h-3v2h1v2h-1v2h4m8-5c0 5.5-4.5 10-10 10S2 17.5 2 12S6.5 2 12 2s10 4.5 10 10m-2 0c0-4.42-3.58-8-8-8s-8 3.58-8 8s3.58 8 8 8s8-3.58 8-8Z"></path></svg> This feature is not available in Free plan. Please upgrade to any plan.</span></p>
+                  <Modal
+                    open={this.state.moveCard}
+                    onClose={this.onCloseMoveCard}
+                  >
+                    <div>
+                      <h3 className="moveHead">Move Cards</h3>
+                      <p className="movePara">Run retrospectives even when you are sleeping</p>
+                      <p className="movePara"><span style={{ backgroundColor: "#f2c94c", color: "white", borderRadius: "5px", padding: "0.3em" }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7v2h2V7h-2m3 10v-2h-1v-4h-3v2h1v2h-1v2h4m8-5c0 5.5-4.5 10-10 10S2 17.5 2 12S6.5 2 12 2s10 4.5 10 10m-2 0c0-4.42-3.58-8-8-8s-8 3.58-8 8s3.58 8 8 8s8-3.58 8-8Z"></path></svg> This feature is not available in Free plan. Please upgrade to any plan.</span></p>
 
-                            <p className="subPara">There is always something you want to move across boards or teams, guess what? “Move cards” <br />feature will allow you to do that. You can move any card on the board from one board to another <br />board or team</p>
-                          <br/>
-                          <h5>Key features:</h5>
-                          <p className="subPara">- Admins can move any card on a board to any other Reetro board in your team or across <br/>multiple teams</p>
-                         <div style={{textAlign:"center"}}>
-                          <button style={{border:"none"}}><span style={{backgroundColor:"#0000FF", color:"white", borderRadius:"5px", padding:"0.3em"}}>Upgrade</span></button>
-                          </div>
-                          </div>
-                        </Modal>
+                      <p className="subPara">There is always something you want to move across boards or teams, guess what? “Move cards” <br />feature will allow you to do that. You can move any card on the board from one board to another <br />board or team</p>
+                      <br />
+                      <h5>Key features:</h5>
+                      <p className="subPara">- Admins can move any card on a board to any other Reetro board in your team or across <br />multiple teams</p>
+                      <div style={{ textAlign: "center" }}>
+                        <button style={{ border: "none" }}><span style={{ backgroundColor: "#0000FF", color: "white", borderRadius: "5px", padding: "0.3em" }}>Upgrade</span></button>
+                      </div>
+                    </div>
+                  </Modal>
 
-                        <Modal
-                          open={this.state.export}
-                          onClose={this.onCloseExport}
-                        >
-                          <div>
-                            <h3 className="moveHead">Integrations</h3>
-                            <p className="movePara">Seamless single click integrations with your favorite Agile tools</p>
-                            <p className="movePara"><span style={{backgroundColor:"#f2c94c", color:"white", borderRadius:"5px", padding:"0.3em"}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7v2h2V7h-2m3 10v-2h-1v-4h-3v2h1v2h-1v2h4m8-5c0 5.5-4.5 10-10 10S2 17.5 2 12S6.5 2 12 2s10 4.5 10 10m-2 0c0-4.42-3.58-8-8-8s-8 3.58-8 8s3.58 8 8 8s8-3.58 8-8Z"></path></svg> This feature is not available in Free plan. Please upgrade to any plan.</span></p>
+                  <Modal
+                    open={this.state.export}
+                    onClose={this.onCloseExport}
+                  >
+                    <div>
+                      <h3 className="moveHead">Integrations</h3>
+                      <p className="movePara">Seamless single click integrations with your favorite Agile tools</p>
+                      <p className="movePara"><span style={{ backgroundColor: "#f2c94c", color: "white", borderRadius: "5px", padding: "0.3em" }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7v2h2V7h-2m3 10v-2h-1v-4h-3v2h1v2h-1v2h4m8-5c0 5.5-4.5 10-10 10S2 17.5 2 12S6.5 2 12 2s10 4.5 10 10m-2 0c0-4.42-3.58-8-8-8s-8 3.58-8 8s3.58 8 8 8s8-3.58 8-8Z"></path></svg> This feature is not available in Free plan. Please upgrade to any plan.</span></p>
 
-                            <p className="subPara">Reetro integrates with popular tools like Atlassian Jira, AzureDevops and Confluence, Trello, Teams and Slack You can export cards and action items as user stories in your Jira project with a single click</p>
-                          <br/>
-                          <p className="subPara">Simply click on an action item and choose “Export to Jira” and boom your comment card or action item is created as a Task in your Jira project</p>
-                          <br/>
-                          <h5>Key features:</h5>
-                          <p className="subPara">- Admin can configure API integration with JIRA for a single team or whole organization</p>
-<p className="subPara">- Admin can configure API integration with Azure DevOps</p>
-<p className="subPara">- Export Comment cards or Action items as (Task, subTask, bug or issue) in JIRA or Azure Devops</p>
-<p className="subPara">- Push team notifications to your Slack channel or Microsoft Teams</p>
-<p className="subPara">- Send Polls, surveys and health checks to Microsoft Teams or Slack</p>
-<p className="subPara">- Export all the retrospective data from Reetro to your Confluence page</p>
-<p className="subPara">- Export all the retrospective data from Reetro to Trello</p>
-<br/>
-<h5>Availability:</h5>
-<br/>
-<p className="subPara">- Set up by: Only Admin and Super Admin in the team can configure the integration but all other users can export any comment or action item to Jira or Azure DevOps</p>
-                         <div style={{textAlign:"center"}}>
-                          <button style={{border:"none"}}><span style={{backgroundColor:"#0000FF", color:"white", borderRadius:"5px", padding:"0.3em"}}>Upgrade</span></button>
-                          </div>
-                          </div>
-                        </Modal>
+                      <p className="subPara">Reetro integrates with popular tools like Atlassian Jira, AzureDevops and Confluence, Trello, Teams and Slack You can export cards and action items as user stories in your Jira project with a single click</p>
+                      <br />
+                      <p className="subPara">Simply click on an action item and choose “Export to Jira” and boom your comment card or action item is created as a Task in your Jira project</p>
+                      <br />
+                      <h5>Key features:</h5>
+                      <p className="subPara">- Admin can configure API integration with JIRA for a single team or whole organization</p>
+                      <p className="subPara">- Admin can configure API integration with Azure DevOps</p>
+                      <p className="subPara">- Export Comment cards or Action items as (Task, subTask, bug or issue) in JIRA or Azure Devops</p>
+                      <p className="subPara">- Push team notifications to your Slack channel or Microsoft Teams</p>
+                      <p className="subPara">- Send Polls, surveys and health checks to Microsoft Teams or Slack</p>
+                      <p className="subPara">- Export all the retrospective data from Reetro to your Confluence page</p>
+                      <p className="subPara">- Export all the retrospective data from Reetro to Trello</p>
+                      <br />
+                      <h5>Availability:</h5>
+                      <br />
+                      <p className="subPara">- Set up by: Only Admin and Super Admin in the team can configure the integration but all other users can export any comment or action item to Jira or Azure DevOps</p>
+                      <div style={{ textAlign: "center" }}>
+                        <button style={{ border: "none" }}><span style={{ backgroundColor: "#0000FF", color: "white", borderRadius: "5px", padding: "0.3em" }}>Upgrade</span></button>
+                      </div>
+                    </div>
+                  </Modal>
 
-                        <Modal
-                          open={this.state.history}
-                          onClose={this.onCloseHistory}
-                        >
-                          <div>
-                            <h3 className="moveHead">Show History</h3>
-                            <p className="movePara">Dig deep into the history of each card</p>
-                            <p className="movePara"><span style={{backgroundColor:"#f2c94c", color:"white", borderRadius:"5px", padding:"0.3em"}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7v2h2V7h-2m3 10v-2h-1v-4h-3v2h1v2h-1v2h4m8-5c0 5.5-4.5 10-10 10S2 17.5 2 12S6.5 2 12 2s10 4.5 10 10m-2 0c0-4.42-3.58-8-8-8s-8 3.58-8 8s3.58 8 8 8s8-3.58 8-8Z"></path></svg> This feature is not available in Free plan. Please upgrade to any plan.</span></p>
+                  <Modal
+                    open={this.state.history}
+                    onClose={this.onCloseHistory}
+                  >
+                    <div>
+                      <h3 className="moveHead">Show History</h3>
+                      <p className="movePara">Dig deep into the history of each card</p>
+                      <p className="movePara"><span style={{ backgroundColor: "#f2c94c", color: "white", borderRadius: "5px", padding: "0.3em" }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 7v2h2V7h-2m3 10v-2h-1v-4h-3v2h1v2h-1v2h4m8-5c0 5.5-4.5 10-10 10S2 17.5 2 12S6.5 2 12 2s10 4.5 10 10m-2 0c0-4.42-3.58-8-8-8s-8 3.58-8 8s3.58 8 8 8s8-3.58 8-8Z"></path></svg> This feature is not available in Free plan. Please upgrade to any plan.</span></p>
 
-                            <p className="subPara">Show history feature will allow the admins to get a complete overview of all the edits and changes dones on an individual card</p>
-                          <br/>
-                          <h5>Key features:</h5>
-                          <p className="subPara">- Admins can click on “Show history” on each card and it will show the details of the card history</p>
+                      <p className="subPara">Show history feature will allow the admins to get a complete overview of all the edits and changes dones on an individual card</p>
+                      <br />
+                      <h5>Key features:</h5>
+                      <p className="subPara">- Admins can click on “Show history” on each card and it will show the details of the card history</p>
 
-                       <div style={{textAlign:"center"}}>
-                          <button style={{border:"none"}}><span style={{backgroundColor:"#0000FF", color:"white", borderRadius:"5px", padding:"0.3em"}}>Upgrade</span></button>
-                          </div>
-                          </div>
-                        </Modal>
+                      <div style={{ textAlign: "center" }}>
+                        <button style={{ border: "none" }}><span style={{ backgroundColor: "#0000FF", color: "white", borderRadius: "5px", padding: "0.3em" }}>Upgrade</span></button>
+                      </div>
+                    </div>
+                  </Modal>
                 </div>
               </div>
             </div>
