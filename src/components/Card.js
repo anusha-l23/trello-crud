@@ -208,7 +208,7 @@ class Card extends Component {
 
                     <i
                       className="fa fa-comment"
-                      style={{ color: "#0000FF" }}
+                      style={{ color: "#414ba4" }}
                       onClick={this.onClickButton}
                     ></i>
 
@@ -228,7 +228,7 @@ class Card extends Component {
                                 variant="dark"
                                 action
                                 style={{
-                                  backgroundColor: "#0000FF",
+                                  backgroundColor: "#414ba4",
                                   paddingLeft: "1em",
                                   paddingRight: "1em",
                                   color: "white", borderRadius: "5px"
@@ -317,14 +317,14 @@ class Card extends Component {
                           height="1em"
                           viewBox="0 0 24 24"
                           onClick={() => this.setState({ thumb: false })}
-                          style={{ color: "#0000FF" }}
+                          style={{ color: "#414ba4" }}
                         >
                           <path
                             fill="currentColor"
                             d="M18 21H8V8l7-7l1.25 1.25q.175.175.288.475t.112.575v.35L15.55 8H21q.8 0 1.4.6T23 10v2q0 .175-.037.375t-.113.375l-3 7.05q-.225.5-.75.85T18 21ZM6 8v13H2V8h4Z"
                           ></path>
                         </svg>{" "}
-                        <span style={{ color: "#0000FF" }}>1</span>
+                        <span style={{ color: "#414ba4" }}>1</span>
                       </>
                     ) : (
                       <>
@@ -340,8 +340,8 @@ class Card extends Component {
                           onMouseLeave={() =>
                             this.setState({ hoverThumb: false })
                           }
-                          style={{ color: hoverThumb ? "#0000FF" : "#c4c4ff" }}
-                          //style={{ color: this.state.hoverThumb ? "#0000FF" : "#c4c4ff" }}
+                          style={{ color: hoverThumb ? "#414ba4" : "#c4c4ff" }}
+                          //style={{ color: this.state.hoverThumb ? "#414ba4" : "#c4c4ff" }}
                           onClick={() => this.setState({ thumb: true })}
                         >
                           <path
@@ -364,14 +364,14 @@ class Card extends Component {
                           height="1em"
                           viewBox="0 0 32 32"
                           onClick={() => this.setState({ thumbDown: false })}
-                          style={{ color: "#0000FF", marginLeft: "4px" }}
+                          style={{ color: "#414ba4", marginLeft: "4px" }}
                         >
                           <path
                             fill="currentColor"
                             d="M2 2h5v14H2zm21 0H9v14.803l3.042 4.563l.845 5.917A2.01 2.01 0 0 0 14.867 29H15a3.003 3.003 0 0 0 3-3v-6h8a4.005 4.005 0 0 0 4-4V9a7.008 7.008 0 0 0-7-7z"
                           ></path>
                         </svg>
-                        <span style={{ color: "#0000FF" }}>1</span>
+                        <span style={{ color: "#414ba4" }}>1</span>
                       </>
                     ) : (
                       <>
@@ -387,7 +387,7 @@ class Card extends Component {
                             this.setState({ hoverThumb1: false })
                           }
                           style={{
-                            color: hoverThumb1 ? "#0000FF" : "#c4c4ff",
+                            color: hoverThumb1 ? "#414ba4" : "#c4c4ff",
                             marginLeft: "4px",
                           }}
                           onClick={() => this.setState({ thumbDown: true })}
@@ -720,7 +720,7 @@ class Card extends Component {
                       <h5>Key features:</h5>
                       <p className="subPara">- Admins can move any card on a board to any other Reetro board in your team or across <br />multiple teams</p>
                       <div style={{ textAlign: "center" }}>
-                        <button style={{ border: "none" }}><span style={{ backgroundColor: "#0000FF", color: "white", borderRadius: "5px", padding: "0.3em" }}>Upgrade</span></button>
+                        <button style={{ border: "none" }}><span style={{ backgroundColor: "#414ba4", color: "white", borderRadius: "5px", padding: "0.3em" }}>Upgrade</span></button>
                       </div>
                     </div>
                   </Modal>
@@ -752,7 +752,7 @@ class Card extends Component {
                       <br />
                       <p className="subPara">- Set up by: Only Admin and Super Admin in the team can configure the integration but all other users can export any comment or action item to Jira or Azure DevOps</p>
                       <div style={{ textAlign: "center" }}>
-                        <button style={{ border: "none" }}><span style={{ backgroundColor: "#0000FF", color: "white", borderRadius: "5px", padding: "0.3em" }}>Upgrade</span></button>
+                        <button style={{ border: "none" }}><span style={{ backgroundColor: "#414ba4", color: "white", borderRadius: "5px", padding: "0.3em" }}>Upgrade</span></button>
                       </div>
                     </div>
                   </Modal>
@@ -773,7 +773,7 @@ class Card extends Component {
                       <p className="subPara">- Admins can click on “Show history” on each card and it will show the details of the card history</p>
 
                       <div style={{ textAlign: "center" }}>
-                        <button style={{ border: "none" }}><span style={{ backgroundColor: "#0000FF", color: "white", borderRadius: "5px", padding: "0.3em" }}>Upgrade</span></button>
+                        <button style={{ border: "none" }}><span style={{ backgroundColor: "#414ba4", color: "white", borderRadius: "5px", padding: "0.3em" }}>Upgrade</span></button>
                       </div>
                     </div>
                   </Modal>

@@ -21,6 +21,7 @@ class List extends Component {
     toggleCard: false,
     toggleCardTemp: false,
     togglePlus: false,
+    color: "white",
   };
   dropdownRef = React.createRef();
 
@@ -168,7 +169,7 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                       width="1em"
                       height="1em"
                       viewBox="0 0 16 16"
-                      style={{ color: "#0000FF" }}
+                      style={{ color: "#414ba4" }}
                       onClick={() =>
                         this.setState({ togglePlus: !this.state.togglePlus })
                       }
@@ -192,7 +193,7 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                       width="1em"
                       height="1em"
                       viewBox="0 0 24 24"
-                      style={{ marginLeft: "0.5em", color: "#0000FF" }}
+                      style={{ marginLeft: "0.5em", color: "#414ba4" }}
                     >
                       <path
                         fill="none"
@@ -282,19 +283,19 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                         <li
                           style={{ marginTop: "1em" }}
                         >
-                          <svg style={{ color: "#0000FF" }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fillRule="evenodd" d="M15.98 8.17l-.97 5.95C14.84 15.5 13.13 16 12 16H5.69c-.2 0-.38-.05-.53-.14L3.72 15H2c-1.06 0-2-.94-2-2V9c0-1.06.94-2.02 2-2h2c.91 0 1.39-.45 2.39-1.55c.91-1 .88-1.8.63-3.27c-.08-.5.06-1 .42-1.42C7.83.29 8.42 0 9 0c1.83 0 3 3.71 3 5.01l-.02.98h2.04c1.16 0 1.95.8 1.98 1.97c0 .11-.02.21-.02.21zm-1.97-1.19h-1.99c-.7 0-1.03-.28-1.03-.97l.03-1.03c0-1.27-1.17-4-2-4c-.5 0-1.08.5-1 1c.25 1.58.34 2.78-.89 4.14C6.11 7.25 5.36 8 4 8v6l1.67 1H12c.73 0 1.95-.31 2-1l.02-.02l1-6c-.03-.64-.38-1-1-1h-.01z" fill="currentColor"></path></svg> sort by Up Votes</li>
+                          <svg style={{ color: "#414ba4" }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fillRule="evenodd" d="M15.98 8.17l-.97 5.95C14.84 15.5 13.13 16 12 16H5.69c-.2 0-.38-.05-.53-.14L3.72 15H2c-1.06 0-2-.94-2-2V9c0-1.06.94-2.02 2-2h2c.91 0 1.39-.45 2.39-1.55c.91-1 .88-1.8.63-3.27c-.08-.5.06-1 .42-1.42C7.83.29 8.42 0 9 0c1.83 0 3 3.71 3 5.01l-.02.98h2.04c1.16 0 1.95.8 1.98 1.97c0 .11-.02.21-.02.21zm-1.97-1.19h-1.99c-.7 0-1.03-.28-1.03-.97l.03-1.03c0-1.27-1.17-4-2-4c-.5 0-1.08.5-1 1c.25 1.58.34 2.78-.89 4.14C6.11 7.25 5.36 8 4 8v6l1.67 1H12c.73 0 1.95-.31 2-1l.02-.02l1-6c-.03-.64-.38-1-1-1h-.01z" fill="currentColor"></path></svg> sort by Up Votes</li>
                           <li
                           style={{ marginTop: "1em" }}
-                        ><svg style={{ color: "#0000FF" }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fillRule="evenodd" d="M15.98 7.83l-.97-5.95C14.84.5 13.13 0 12 0H5.69c-.2 0-.38.05-.53.14L3.72 1H2C.94 1 0 1.94 0 3v4c0 1.06.94 2.02 2 2h2c.91 0 1.39.45 2.39 1.55c.91 1 .88 1.8.63 3.27c-.08.5.06 1 .42 1.42c.39.47.98.76 1.56.76c1.83 0 3-3.71 3-5.01l-.02-.98h2.04c1.16 0 1.95-.8 1.98-1.97c0-.11-.02-.21-.02-.21zm-1.97 1.19h-1.99c-.7 0-1.03.28-1.03.97l.03 1.03c0 1.27-1.17 4-2 4c-.5 0-1.08-.5-1-1c.25-1.58.34-2.78-.89-4.14C6.11 8.75 5.36 8 4 8V2l1.67-1H12c.73 0 1.95.31 2 1l.02.02l1 6c-.03.64-.38 1-1 1h-.01z" fill="currentColor"></path></svg> sort by Down Votes</li>
+                        ><svg style={{ color: "#414ba4" }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fillRule="evenodd" d="M15.98 7.83l-.97-5.95C14.84.5 13.13 0 12 0H5.69c-.2 0-.38.05-.53.14L3.72 1H2C.94 1 0 1.94 0 3v4c0 1.06.94 2.02 2 2h2c.91 0 1.39.45 2.39 1.55c.91 1 .88 1.8.63 3.27c-.08.5.06 1 .42 1.42c.39.47.98.76 1.56.76c1.83 0 3-3.71 3-5.01l-.02-.98h2.04c1.16 0 1.95-.8 1.98-1.97c0-.11-.02-.21-.02-.21zm-1.97 1.19h-1.99c-.7 0-1.03.28-1.03.97l.03 1.03c0 1.27-1.17 4-2 4c-.5 0-1.08-.5-1-1c.25-1.58.34-2.78-.89-4.14C6.11 8.75 5.36 8 4 8V2l1.67-1H12c.73 0 1.95.31 2 1l.02.02l1 6c-.03.64-.38 1-1 1h-.01z" fill="currentColor"></path></svg> sort by Down Votes</li>
                          <li
                           style={{ marginTop: "1em" }}
                         >
-                      <svg style={{ color: "#0000FF" }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q-.825 0-1.413-.588T3 20V6q0-.825.588-1.413T5 4h1V3q0-.425.288-.713T7 2q.425 0 .713.288T8 3v1h8V3q0-.425.288-.713T17 2q.425 0 .713.288T18 3v1h1q.825 0 1.413.588T21 6v14q0 .825-.588 1.413T19 22H5Zm0-2h14V10H5v10ZM5 8h14V6H5v2Zm0 0V6v2Zm7 6q-.425 0-.713-.288T11 13q0-.425.288-.713T12 12q.425 0 .713.288T13 13q0 .425-.288.713T12 14Zm-4 0q-.425 0-.713-.288T7 13q0-.425.288-.713T8 12q.425 0 .713.288T9 13q0 .425-.288.713T8 14Zm8 0q-.425 0-.713-.288T15 13q0-.425.288-.713T16 12q.425 0 .713.288T17 13q0 .425-.288.713T16 14Zm-4 4q-.425 0-.713-.288T11 17q0-.425.288-.713T12 16q.425 0 .713.288T13 17q0 .425-.288.713T12 18Zm-4 0q-.425 0-.713-.288T7 17q0-.425.288-.713T8 16q.425 0 .713.288T9 17q0 .425-.288.713T8 18Zm8 0q-.425 0-.713-.288T15 17q0-.425.288-.713T16 16q.425 0 .713.288T17 17q0 .425-.288.713T16 18Z"></path></svg> sort by Created Date
+                      <svg style={{ color: "#414ba4" }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q-.825 0-1.413-.588T3 20V6q0-.825.588-1.413T5 4h1V3q0-.425.288-.713T7 2q.425 0 .713.288T8 3v1h8V3q0-.425.288-.713T17 2q.425 0 .713.288T18 3v1h1q.825 0 1.413.588T21 6v14q0 .825-.588 1.413T19 22H5Zm0-2h14V10H5v10ZM5 8h14V6H5v2Zm0 0V6v2Zm7 6q-.425 0-.713-.288T11 13q0-.425.288-.713T12 12q.425 0 .713.288T13 13q0 .425-.288.713T12 14Zm-4 0q-.425 0-.713-.288T7 13q0-.425.288-.713T8 12q.425 0 .713.288T9 13q0 .425-.288.713T8 14Zm8 0q-.425 0-.713-.288T15 13q0-.425.288-.713T16 12q.425 0 .713.288T17 13q0 .425-.288.713T16 14Zm-4 4q-.425 0-.713-.288T11 17q0-.425.288-.713T12 16q.425 0 .713.288T13 17q0 .425-.288.713T12 18Zm-4 0q-.425 0-.713-.288T7 17q0-.425.288-.713T8 16q.425 0 .713.288T9 17q0 .425-.288.713T8 18Zm8 0q-.425 0-.713-.288T15 17q0-.425.288-.713T16 16q.425 0 .713.288T17 17q0 .425-.288.713T16 18Z"></path></svg> sort by Created Date
                       </li>
                       <li
                           style={{ marginTop: "1em" }}
                         >
-                      <svg style={{ color: "#0000FF" }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3C6.5 3 2 6.58 2 11a7.218 7.218 0 0 0 2.75 5.5c0 .6-.42 2.17-2.75 4.5c2.37-.11 4.64-1 6.47-2.5c1.14.33 2.34.5 3.53.5c5.5 0 10-3.58 10-8s-4.5-8-10-8m0 14c-4.42 0-8-2.69-8-6s3.58-6 8-6s8 2.69 8 6s-3.58 6-8 6Z"></path></svg> sort by Color
+                      <svg style={{ color: "#414ba4" }} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3C6.5 3 2 6.58 2 11a7.218 7.218 0 0 0 2.75 5.5c0 .6-.42 2.17-2.75 4.5c2.37-.11 4.64-1 6.47-2.5c1.14.33 2.34.5 3.53.5c5.5 0 10-3.58 10-8s-4.5-8-10-8m0 14c-4.42 0-8-2.69-8-6s3.58-6 8-6s8 2.69 8 6s-3.58 6-8 6Z"></path></svg> sort by Color
                         </li>
                         </ul>
                         </div>
@@ -311,7 +312,7 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                             width="1em"
                             height="1em"
                             viewBox="0 0 24 24"
-                            style={{ color: "#0000FF" }}
+                            style={{ color: "#414ba4" }}
                           >
                             <path
                               fill="currentColor"
@@ -326,7 +327,7 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                         >
                           <i
                             className="fa fa-comment-o"
-                            style={{ color: "#0000FF" }}
+                            style={{ color: "#414ba4" }}
                           ></i> Convert All to Comments
                         </li>
                         <li
@@ -334,14 +335,14 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                           onClick={this.deleteCard}
                         >
                         
-                          <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" style={{ color: "#0000FF" }}><path fill="currentColor" d="M505 174.8l-39.6-39.6c-9.4-9.4-24.6-9.4-33.9 0L192 374.7 80.6 263.2c-9.4-9.4-24.6-9.4-33.9 0L7 302.9c-9.4 9.4-9.4 24.6 0 34L175 505c9.4 9.4 24.6 9.4 33.9 0l296-296.2c9.4-9.5 9.4-24.7.1-34zm-324.3 106c6.2 6.3 16.4 6.3 22.6 0l208-208.2c6.2-6.3 6.2-16.4 0-22.6L366.1 4.7c-6.2-6.3-16.4-6.3-22.6 0L192 156.2l-55.4-55.5c-6.2-6.3-16.4-6.3-22.6 0L68.7 146c-6.2 6.3-6.2 16.4 0 22.6l112 112.2z" /></svg> Convert All to Actions
+                          <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" style={{ color: "#414ba4" }}><path fill="currentColor" d="M505 174.8l-39.6-39.6c-9.4-9.4-24.6-9.4-33.9 0L192 374.7 80.6 263.2c-9.4-9.4-24.6-9.4-33.9 0L7 302.9c-9.4 9.4-9.4 24.6 0 34L175 505c9.4 9.4 24.6 9.4 33.9 0l296-296.2c9.4-9.5 9.4-24.7.1-34zm-324.3 106c6.2 6.3 16.4 6.3 22.6 0l208-208.2c6.2-6.3 6.2-16.4 0-22.6L366.1 4.7c-6.2-6.3-16.4-6.3-22.6 0L192 156.2l-55.4-55.5c-6.2-6.3-16.4-6.3-22.6 0L68.7 146c-6.2 6.3-6.2 16.4 0 22.6l112 112.2z" /></svg> Convert All to Actions
                         </li>
                         <li
                           style={{ marginTop: "1em" }}
                           onClick={this.deleteList}
                         >
                           <svg
-                            style={{ color: "#0000FF", fontWeight: "bold" }}
+                            style={{ color: "#414ba4", fontWeight: "bold" }}
                             xmlns="http://www.w3.org/2000/svg"
                             width="1em"
                             height="1em"
@@ -445,14 +446,19 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                       adding
                     />
                   )}
+            
                   {list.cards &&
                     list.cards.map((cardId, index) => (
+                      <div
+                      style={{ backgroundColor: this.state.color}}
+                    >
                       <Card
                         key={cardId}
                         cardId={cardId}
                         index={index}
                         listId={list._id}
                       />
+                 </div>
                     ))}
 
                   {provided.placeholder}

@@ -9,6 +9,8 @@ import axios from "axios";
 import 'emoji-mart/css/emoji-mart.css'
 import CanvasDraw from 'react-canvas-draw';
 import { toPng } from 'dom-to-image';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Tooltip } from 'bootstrap';
 class CardEditor extends Component {
   state = {
     text: this.props.text || "",
@@ -75,7 +77,7 @@ class CardEditor extends Component {
 
     toPng(canvas)
       .then((dataUrl) => {
-         this.setState({ savedImage: dataUrl });
+        this.setState({ savedImage: dataUrl });
         // this.setState((prevState) => ({
         //   text: `${prevState.text} ${prevState.savedImage}`,
         // }));
@@ -95,6 +97,15 @@ class CardEditor extends Component {
       isEraser: !prevState.isEraser,
     }));
   };
+
+  componentDidMount() {
+    const tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new Tooltip(tooltipTriggerEl);
+    });
+  }
 
   handleEmojiSelect = (emoji) => {
     const { text } = this.state;
@@ -244,7 +255,7 @@ class CardEditor extends Component {
           text: `${prevState.text} ${response.data.data.images.fixed_height.url}`,
           randomGif: response.data.data.images.fixed_height.url
         }));
-        
+
       })
       .catch((error) => {
         console.error('Error fetching searched GIF:', error);
@@ -277,7 +288,7 @@ class CardEditor extends Component {
     return (
       <div className="Edit-Card lists__menu">
         <div className="Card">
-          <p style={{ textAlign: "right", marginRight: "10px", color: "gray" }} onClick={this.toggleEmojiPicker}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><g fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75a.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25a.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path></g></svg></p>
+          <p style={{ textAlign: "right", marginRight: "10px", color: "gray", marginBottom: "10px" }} onClick={this.toggleEmojiPicker}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><g fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75a.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25a.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"></path></g></svg></p>
           <input
             autoFocus
             className="Edit-Card-Textarea"
@@ -292,7 +303,7 @@ class CardEditor extends Component {
               <Picker onSelect={this.handleEmojiSelect} style={{ width: "100%" }} />
             </div>
           )}
-
+          <br />
           {action && !this.state.name && (
             <svg
               className="rounded-dashed"
@@ -429,78 +440,129 @@ class CardEditor extends Component {
               </select>
             </div>
           )}
-          {this.state.savedImage && <img src={this.state.savedImage} style={{height: "100%", width:"100%"}} alt="Saved Canvas" />}
+          {this.state.savedImage && <img src={this.state.savedImage} style={{ height: "100%", width: "100%" }} alt="Saved Canvas" />}
           <hr style={{ marginTop: "1em", marginBottom: "2em" }} />
           {adding ? (
             <div className="flex-start">
-              <i
-                className="fa fa-comment-o"
-                style={{ color: "#0000FF" }}
-                onClick={(e) => {
-                  this.toggleActionCancel();
-                  this.toggleGifCancel();
-                  this.toggleKudosCancel();
-                }}
-              ></i>
-              <i
-                onMouseEnter={this.handleMouseEnter1}
-                onMouseLeave={this.handleMouseLeave1}
-                className="fa fa-hand-o-up"
-                aria-hidden="true"
-                style={{ color: isHover1 ? "#0000FF" : "#c4c4ff" }}
-                onClick={this.toggleAction}
-              ></i>
-              <svg
-                onMouseEnter={this.handleMouseEnter2}
-                onMouseLeave={this.handleMouseLeave2}
-                style={{ color: isHover2 ? "#0000FF" : "#c4c4ff" }}
-                // onClick={this.toggleGif}
-                onClick={this.handleGif}
-                xmlns="http://www.w3.org/2000/svg"
-                width="1.5em"
-                height="1.5em"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M8 8H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h3v-4H7m5-4v8m4 0V8h5m-1 4h-4"
-                ></path>
-              </svg>
-              <svg
-                onMouseEnter={this.handleMouseEnter3}
-                onMouseLeave={this.handleMouseLeave3}
-                style={{ color: isHover3 ? "#0000FF" : "#c4c4ff" }}
-                onClick={this.toggleKudos}
-                xmlns="http://www.w3.org/2000/svg"
-                width="1em"
-                height="1em"
-                viewBox="0 0 32 32"
-              >
-                <g fill="currentColor">
-                  <path d="M15.371 13.041c.111.037.226.064.342.081c.185.047.373.08.563.1a1.978 1.978 0 0 0 3.846.114c.218-.786.33-1.598.333-2.414a9.441 9.441 0 0 0 1.168-2.1l.013-.03l.107-.26l.137-.346a28.99 28.99 0 0 0 .415-1.146l.027-.08l.01-.032c.068-.2.136-.422.2-.646c.038-.129.074-.26.109-.392a9.501 9.501 0 0 0 .322-1.791v-.03a2 2 0 0 0-1.732-2.052a1.96 1.96 0 0 0-1.134.195a2 2 0 0 0-1.091 1.636v.01a8.502 8.502 0 0 1-.43 1.793c-.1.3-.2.585-.3.84c-.2-.103-.41-.19-.624-.26l-.019-.009a3.592 3.592 0 0 0-2.262 6.818v.001Zm3.786.031a.978.978 0 0 1-1.849.117c.19-.034.377-.082.559-.144a4.434 4.434 0 0 0 1.489-.89c-.05.31-.116.615-.199.917Zm-5.11-4.26a2.586 2.586 0 0 1 3.27-1.64l.03.01c.195.062.383.144.561.244l-.021.049v.012a5.428 5.428 0 0 1-.9 1.429l-.016.016l-.025.029a1.88 1.88 0 0 1-.1.109a2.193 2.193 0 0 0-.1-.038l-.03-.01a.634.634 0 0 0-.8.4a.575.575 0 0 0 .03.48c.06.128.162.231.289.292c.034.008.067.017.1.028c.09.032.184.053.279.061a.8.8 0 0 0 .437-.1c.07-.036.137-.077.2-.124c.168-.132.322-.28.458-.445l.01-.01a6.325 6.325 0 0 0 1.077-1.693a4.624 4.624 0 0 0 .088-.215a.03.03 0 0 0 0-.015l.01-.024a16.897 16.897 0 0 0 .162-.393l.034-.087l.034-.088c.424-1.015.72-2.079.883-3.167a.999.999 0 0 1 .333-.674a.979.979 0 0 1 .707-.246c.215.012.42.096.58.24a1 1 0 0 1 .34.79c-.01.159-.029.327-.055.5c-.08.492-.192.98-.336 1.457l-.042.14a23.581 23.581 0 0 1-.615 1.764l-.033.084a24.263 24.263 0 0 1-.174.429l-.015.036l-.086.208a8.517 8.517 0 0 1-1.414 2.24a3.736 3.736 0 0 1-1.831 1.26a2.68 2.68 0 0 1-1.043.072a2.942 2.942 0 0 1-.422-.084a.905.905 0 0 1-.214-.045a2.593 2.593 0 0 1-1.64-3.281ZM12.06 3.98a.96.96 0 1 1-1.066-1.596a.96.96 0 0 1 1.066 1.596Zm11.908 18.846a.97.97 0 1 1 1.078 1.612a.97.97 0 0 1-1.078-1.612Zm.999-13.914a1.16 1.16 0 1 0 0-2.32a1.16 1.16 0 0 0 0 2.32ZM6.651 8.716a1.16 1.16 0 1 1-1.288-1.929a1.16 1.16 0 0 1 1.288 1.93Z"></path>
-                  <path d="M29.396 14.89a1.044 1.044 0 0 1-.799.032a6.646 6.646 0 0 0-6.397.969c2.327.06 4.602.694 6.623 1.849a2.15 2.15 0 0 1-2.086 3.76a9.742 9.742 0 0 0-7.981-.813c.335.643.586 1.327.745 2.035c.057.211.085.43.084.648a1.963 1.963 0 0 1-.48 1.542c-.08.08-.169.15-.265.209a2.4 2.4 0 0 1-1.055.591l-12.738 3.41a2.42 2.42 0 0 1-2.96-2.97l3.41-12.74a2.4 2.4 0 0 1 .6-1.065a1.45 1.45 0 0 1 .2-.255a1.938 1.938 0 0 1 1.495-.482c.243-.006.486.025.72.092a8.05 8.05 0 0 1 1.794.636c.28-1.62.01-3.288-.769-4.736a1.174 1.174 0 0 1 2.07-1.11a9.715 9.715 0 0 1 .824 7.11a21.066 21.066 0 0 1 2.209 1.805a1.15 1.15 0 0 1 1.677 1.573a16.103 16.103 0 0 1 4.522-1.051a1.05 1.05 0 0 1 .004-1.641a8.74 8.74 0 0 1 8.486-1.33a1.048 1.048 0 0 1 .067 1.932Zm-17.888 7.357l-.181-.155l.166.142l.015.012Zm0 0l.132.112a13.258 13.258 0 0 0-.132-.113Zm-7.454 5.908c.24.065.494.065.735.001l.578-.151a11.293 11.293 0 0 1-2.183-2.08l-.131.49a1.419 1.419 0 0 0 1.001 1.74Zm1.596-2.507a10.26 10.26 0 0 0 2.379 1.641l2.798-.749a17.513 17.513 0 0 1-3.03-2.265a19.225 19.225 0 0 1-3.142-3.853l-.794 2.969a10.149 10.149 0 0 0 1.789 2.257Zm3.517-2.835a16.3 16.3 0 0 0 4.53 2.96l2.491-.668a16.71 16.71 0 0 1-6.011-4.073a22.352 22.352 0 0 1-1.664-1.85c-.23-.285-.444-.57-.644-.853a12.932 12.932 0 0 1-1.772-3.307l-.703 2.661a18.654 18.654 0 0 0 3.773 5.13Zm19.534-3.91a1.15 1.15 0 0 0-.356-.288h-.005a13.151 13.151 0 0 0-11.255-.857l-.192.07l.009.01a13.12 13.12 0 0 0-4.94 3.476c.259.227.51.435.759.635c.349.28.7.539 1.1.8a10.151 10.151 0 0 1 4.028-2.82a10.86 10.86 0 0 1 9.375.693a1.15 1.15 0 0 0 1.477-1.72Z"></path>
-                </g>
-              </svg>
+              <div
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Text"
 
-              <svg
-                onMouseEnter={this.handleMouseEnter4}
-                onMouseLeave={this.handleMouseLeave4}
-                style={{ color: isHover4 ? "#0000FF" : "#c4c4ff" }}
-                onClick={this.onClickPoll}
-                xmlns="http://www.w3.org/2000/svg"
-                width="1em"
-                height="1em"
-                viewBox="0 0 24 24"
               >
-                <path
-                  fill="currentColor"
-                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM8 17c-.55 0-1-.45-1-1v-5c0-.55.45-1 1-1s1 .45 1 1v5c0 .55-.45 1-1 1zm4 0c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v8c0 .55-.45 1-1 1zm4 0c-.55 0-1-.45-1-1v-2c0-.55.45-1 1-1s1 .45 1 1v2c0 .55-.45 1-1 1z"
-                ></path>
-              </svg>
+                {/* <i
+                  className="fa fa-comment-o"
+                  style={{ color: "#414ba4" }}
+                  onClick={(e) => {
+                    this.toggleActionCancel();
+                    this.toggleGifCancel();
+                    this.toggleKudosCancel();
+                  }}
+                ></i> */}
+                <svg 
+                 style={{ color: "#414ba4" }}
+                 onClick={(e) => {
+                   this.toggleActionCancel();
+                   this.toggleGifCancel();
+                   this.toggleKudosCancel();
+                 }}
+                xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2m0 15.2L18.8 16H4V4h16v13.2Z"></path></svg>
+              </div>
+              <div
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Action"
+
+              >
+
+                {/* <i
+                  onMouseEnter={this.handleMouseEnter1}
+                  onMouseLeave={this.handleMouseLeave1}
+                  className="fa fa-hand-o-up"
+                  aria-hidden="true"
+                  style={{ color: isHover1 ? "#414ba4" : "#c4c4ff" }}
+                  onClick={this.toggleAction}
+                ></i> */}
+                
+                <svg 
+                      onMouseEnter={this.handleMouseEnter1}
+                  onMouseLeave={this.handleMouseLeave1}
+                style={{ color: isHover1 ? "#414ba4" : "#c4c4ff" }}
+                  onClick={this.toggleAction}
+                xmlns="http://www.w3.org/2000/svg" width="1em" height="2em" viewBox="0 0 24 24"><g fill="none"><path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z"></path><path fill="currentColor" d="M10.5 6a2.5 2.5 0 0 1 2.495 2.336L13 8.5v4.605l4.455.606a4 4 0 0 1 3.54 3.772l.005.202V18a8.01 8.01 0 0 1-.272 2.074c-.326 1.22-1.436 1.86-2.498 1.921l-.168.005H8.236a3 3 0 0 1-2.588-1.483l-.095-.175l-2.224-4.448c-.36-.72-.093-1.683.747-2.028c1.043-.427 2.034-.506 3.055.012c.222.113.44.252.654.414l.215.17V8.5A2.5 2.5 0 0 1 10.5 6Zm0-4a6.5 6.5 0 0 1 6.255 8.272a1 1 0 0 1-1.924-.544a4.5 4.5 0 1 0-8.34.817a1 1 0 0 1-1.782.91A6.5 6.5 0 0 1 10.5 2Z"></path></g></svg>
+             
+              </div>
+              <div
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Gif"
+
+              >
+                <svg
+                  onMouseEnter={this.handleMouseEnter2}
+                  onMouseLeave={this.handleMouseLeave2}
+                  style={{ color: isHover2 ? "#414ba4" : "#c4c4ff" }}
+                  // onClick={this.toggleGif}
+                  onClick={this.handleGif}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1.5em"
+                  height="1.5em"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M8 8H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h3v-4H7m5-4v8m4 0V8h5m-1 4h-4"
+                  ></path>
+                </svg>
+              </div>
+              <div
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Kudos"
+
+              >
+                <svg
+                  onMouseEnter={this.handleMouseEnter3}
+                  onMouseLeave={this.handleMouseLeave3}
+                  style={{ color: isHover3 ? "#414ba4" : "#c4c4ff" }}
+                  onClick={this.toggleKudos}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 32 32"
+                >
+                  <g fill="currentColor">
+                    <path d="M15.371 13.041c.111.037.226.064.342.081c.185.047.373.08.563.1a1.978 1.978 0 0 0 3.846.114c.218-.786.33-1.598.333-2.414a9.441 9.441 0 0 0 1.168-2.1l.013-.03l.107-.26l.137-.346a28.99 28.99 0 0 0 .415-1.146l.027-.08l.01-.032c.068-.2.136-.422.2-.646c.038-.129.074-.26.109-.392a9.501 9.501 0 0 0 .322-1.791v-.03a2 2 0 0 0-1.732-2.052a1.96 1.96 0 0 0-1.134.195a2 2 0 0 0-1.091 1.636v.01a8.502 8.502 0 0 1-.43 1.793c-.1.3-.2.585-.3.84c-.2-.103-.41-.19-.624-.26l-.019-.009a3.592 3.592 0 0 0-2.262 6.818v.001Zm3.786.031a.978.978 0 0 1-1.849.117c.19-.034.377-.082.559-.144a4.434 4.434 0 0 0 1.489-.89c-.05.31-.116.615-.199.917Zm-5.11-4.26a2.586 2.586 0 0 1 3.27-1.64l.03.01c.195.062.383.144.561.244l-.021.049v.012a5.428 5.428 0 0 1-.9 1.429l-.016.016l-.025.029a1.88 1.88 0 0 1-.1.109a2.193 2.193 0 0 0-.1-.038l-.03-.01a.634.634 0 0 0-.8.4a.575.575 0 0 0 .03.48c.06.128.162.231.289.292c.034.008.067.017.1.028c.09.032.184.053.279.061a.8.8 0 0 0 .437-.1c.07-.036.137-.077.2-.124c.168-.132.322-.28.458-.445l.01-.01a6.325 6.325 0 0 0 1.077-1.693a4.624 4.624 0 0 0 .088-.215a.03.03 0 0 0 0-.015l.01-.024a16.897 16.897 0 0 0 .162-.393l.034-.087l.034-.088c.424-1.015.72-2.079.883-3.167a.999.999 0 0 1 .333-.674a.979.979 0 0 1 .707-.246c.215.012.42.096.58.24a1 1 0 0 1 .34.79c-.01.159-.029.327-.055.5c-.08.492-.192.98-.336 1.457l-.042.14a23.581 23.581 0 0 1-.615 1.764l-.033.084a24.263 24.263 0 0 1-.174.429l-.015.036l-.086.208a8.517 8.517 0 0 1-1.414 2.24a3.736 3.736 0 0 1-1.831 1.26a2.68 2.68 0 0 1-1.043.072a2.942 2.942 0 0 1-.422-.084a.905.905 0 0 1-.214-.045a2.593 2.593 0 0 1-1.64-3.281ZM12.06 3.98a.96.96 0 1 1-1.066-1.596a.96.96 0 0 1 1.066 1.596Zm11.908 18.846a.97.97 0 1 1 1.078 1.612a.97.97 0 0 1-1.078-1.612Zm.999-13.914a1.16 1.16 0 1 0 0-2.32a1.16 1.16 0 0 0 0 2.32ZM6.651 8.716a1.16 1.16 0 1 1-1.288-1.929a1.16 1.16 0 0 1 1.288 1.93Z"></path>
+                    <path d="M29.396 14.89a1.044 1.044 0 0 1-.799.032a6.646 6.646 0 0 0-6.397.969c2.327.06 4.602.694 6.623 1.849a2.15 2.15 0 0 1-2.086 3.76a9.742 9.742 0 0 0-7.981-.813c.335.643.586 1.327.745 2.035c.057.211.085.43.084.648a1.963 1.963 0 0 1-.48 1.542c-.08.08-.169.15-.265.209a2.4 2.4 0 0 1-1.055.591l-12.738 3.41a2.42 2.42 0 0 1-2.96-2.97l3.41-12.74a2.4 2.4 0 0 1 .6-1.065a1.45 1.45 0 0 1 .2-.255a1.938 1.938 0 0 1 1.495-.482c.243-.006.486.025.72.092a8.05 8.05 0 0 1 1.794.636c.28-1.62.01-3.288-.769-4.736a1.174 1.174 0 0 1 2.07-1.11a9.715 9.715 0 0 1 .824 7.11a21.066 21.066 0 0 1 2.209 1.805a1.15 1.15 0 0 1 1.677 1.573a16.103 16.103 0 0 1 4.522-1.051a1.05 1.05 0 0 1 .004-1.641a8.74 8.74 0 0 1 8.486-1.33a1.048 1.048 0 0 1 .067 1.932Zm-17.888 7.357l-.181-.155l.166.142l.015.012Zm0 0l.132.112a13.258 13.258 0 0 0-.132-.113Zm-7.454 5.908c.24.065.494.065.735.001l.578-.151a11.293 11.293 0 0 1-2.183-2.08l-.131.49a1.419 1.419 0 0 0 1.001 1.74Zm1.596-2.507a10.26 10.26 0 0 0 2.379 1.641l2.798-.749a17.513 17.513 0 0 1-3.03-2.265a19.225 19.225 0 0 1-3.142-3.853l-.794 2.969a10.149 10.149 0 0 0 1.789 2.257Zm3.517-2.835a16.3 16.3 0 0 0 4.53 2.96l2.491-.668a16.71 16.71 0 0 1-6.011-4.073a22.352 22.352 0 0 1-1.664-1.85c-.23-.285-.444-.57-.644-.853a12.932 12.932 0 0 1-1.772-3.307l-.703 2.661a18.654 18.654 0 0 0 3.773 5.13Zm19.534-3.91a1.15 1.15 0 0 0-.356-.288h-.005a13.151 13.151 0 0 0-11.255-.857l-.192.07l.009.01a13.12 13.12 0 0 0-4.94 3.476c.259.227.51.435.759.635c.349.28.7.539 1.1.8a10.151 10.151 0 0 1 4.028-2.82a10.86 10.86 0 0 1 9.375.693a1.15 1.15 0 0 0 1.477-1.72Z"></path>
+                  </g>
+                </svg>
+              </div>
+              <div
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Poll"
+
+              >
+                <svg
+                  onMouseEnter={this.handleMouseEnter4}
+                  onMouseLeave={this.handleMouseLeave4}
+                  style={{ color: isHover4 ? "#414ba4" : "#c4c4ff" }}
+                  onClick={this.onClickPoll}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM8 17c-.55 0-1-.45-1-1v-5c0-.55.45-1 1-1s1 .45 1 1v5c0 .55-.45 1-1 1zm4 0c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v8c0 .55-.45 1-1 1zm4 0c-.55 0-1-.45-1-1v-2c0-.55.45-1 1-1s1 .45 1 1v2c0 .55-.45 1-1 1z"
+                  ></path>
+                </svg>
+              </div>
               <Modal open={this.state.openModalPoll} onClose={this.onClosePoll}>
                 <h3 className="text-center">Create new poll</h3>
                 <div className="row">
@@ -613,22 +675,29 @@ class CardEditor extends Component {
                   </div>
                 </div>
               </Modal>
-              <svg
-                onMouseEnter={this.handleMouseEnter5}
-                onMouseLeave={this.handleMouseLeave5}
-                style={{ color: isHover5 ? "#0000FF" : "#c4c4ff" }}
-                onClick={this.onClickDraw}
-                xmlns="http://www.w3.org/2000/svg"
-                width="1em"
-                height="1em"
-                viewBox="0 0 24 24"
+              <div
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Draw"
+
               >
-                <path
-                  fill="currentColor"
-                  d="M12 22q-2.05 0-3.875-.788t-3.188-2.15q-1.362-1.362-2.15-3.187T2 12q0-2.075.813-3.9t2.2-3.175Q6.4 3.575 8.25 2.788T12.2 2q2 0 3.775.688t3.113 1.9q1.337 1.212 2.125 2.875T22 11.05q0 2.875-1.75 4.413T16 17h-1.85q-.225 0-.313.125t-.087.275q0 .3.375.863t.375 1.287q0 1.25-.688 1.85T12 22Zm0-10Zm-5.5 1q.65 0 1.075-.425T8 11.5q0-.65-.425-1.075T6.5 10q-.65 0-1.075.425T5 11.5q0 .65.425 1.075T6.5 13Zm3-4q.65 0 1.075-.425T11 7.5q0-.65-.425-1.075T9.5 6q-.65 0-1.075.425T8 7.5q0 .65.425 1.075T9.5 9Zm5 0q.65 0 1.075-.425T16 7.5q0-.65-.425-1.075T14.5 6q-.65 0-1.075.425T13 7.5q0 .65.425 1.075T14.5 9Zm3 4q.65 0 1.075-.425T19 11.5q0-.65-.425-1.075T17.5 10q-.65 0-1.075.425T16 11.5q0 .65.425 1.075T17.5 13ZM12 20q.225 0 .363-.125t.137-.325q0-.35-.375-.825T11.75 17.3q0-1.05.725-1.675T14.25 15H16q1.65 0 2.825-.963T20 11.05q0-3.025-2.313-5.038T12.2 4Q8.8 4 6.4 6.325T4 12q0 3.325 2.337 5.663T12 20Z"
-                ></path>
-              </svg>
-       
+                <svg
+                  onMouseEnter={this.handleMouseEnter5}
+                  onMouseLeave={this.handleMouseLeave5}
+                  style={{ color: isHover5 ? "#414ba4" : "#c4c4ff" }}
+                  onClick={this.onClickDraw}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 22q-2.05 0-3.875-.788t-3.188-2.15q-1.362-1.362-2.15-3.187T2 12q0-2.075.813-3.9t2.2-3.175Q6.4 3.575 8.25 2.788T12.2 2q2 0 3.775.688t3.113 1.9q1.337 1.212 2.125 2.875T22 11.05q0 2.875-1.75 4.413T16 17h-1.85q-.225 0-.313.125t-.087.275q0 .3.375.863t.375 1.287q0 1.25-.688 1.85T12 22Zm0-10Zm-5.5 1q.65 0 1.075-.425T8 11.5q0-.65-.425-1.075T6.5 10q-.65 0-1.075.425T5 11.5q0 .65.425 1.075T6.5 13Zm3-4q.65 0 1.075-.425T11 7.5q0-.65-.425-1.075T9.5 6q-.65 0-1.075.425T8 7.5q0 .65.425 1.075T9.5 9Zm5 0q.65 0 1.075-.425T16 7.5q0-.65-.425-1.075T14.5 6q-.65 0-1.075.425T13 7.5q0 .65.425 1.075T14.5 9Zm3 4q.65 0 1.075-.425T19 11.5q0-.65-.425-1.075T17.5 10q-.65 0-1.075.425T16 11.5q0 .65.425 1.075T17.5 13ZM12 20q.225 0 .363-.125t.137-.325q0-.35-.375-.825T11.75 17.3q0-1.05.725-1.675T14.25 15H16q1.65 0 2.825-.963T20 11.05q0-3.025-2.313-5.038T12.2 4Q8.8 4 6.4 6.325T4 12q0 3.325 2.337 5.663T12 20Z"
+                  ></path>
+                </svg>
+
+              </div>
               <Modal open={this.state.openModalDraw} onClose={this.onCloseDraw}>
                 <h3 className="text-center">Draw your feelings</h3>
                 <div className="canvas_container__ElvIb">
@@ -721,13 +790,13 @@ class CardEditor extends Component {
                 />
 
                 <div style={{ textAlign: "center" }}>
-                  <button className="" onClick={()=> {
+                  <button className="" onClick={() => {
                     this.saveCanvas();
                     this.onCloseDraw();
                   }} style={{ backgroundColor: "blue", paddingLeft: "1em", paddingRight: "1em", paddingTop: "0.5em", paddingBottom: "0.5em", borderRadius: "5px", border: "none", color: "white" }}>Save</button>
                 </div>
               </Modal>
-  
+
             </div>
           ) : (
             <div className="flex-start">
