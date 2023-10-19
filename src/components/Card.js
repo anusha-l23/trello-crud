@@ -180,7 +180,6 @@ class Card extends Component {
   render() {
     const { card, index, toggleMove } = this.props;
     console.log(card, "card data");
-
     const { editing, hoverThumb, hoverThumb1 } = this.state;
 
     if (!editing && card) {

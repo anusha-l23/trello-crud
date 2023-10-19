@@ -446,7 +446,7 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                       adding
                     />
                   )}
-            
+                {provided.placeholder}
                   {list.cards &&
                     list.cards.map((cardId, index) => (
                       <div
@@ -461,102 +461,8 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                  </div>
                     ))}
 
-                  {provided.placeholder}
+              
 
-                  {/* 
-                  {addingCard ? (
-                    <CardEditor
-                      onSave={this.addCard}
-                      onCancel={this.toggleAddingCard}
-                      adding
-                    />
-                  ) : (
-                    <div className="lists__menu">
-                      <div className="flex">
-                        <div
-                          className="Toggle-Add-Card"
-                          onClick={this.toggleAddingCard}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="1em"
-                            height="1em"
-                            viewBox="0 0 512 512"
-                          >
-                            <path
-                              fill="none"
-                              stroke="currentColor"
-                              strokeLinecap="square"
-                              strokeLinejoin="round"
-                              strokeWidth="32"
-                              d="M256 112v288m144-144H112"
-                            ></path>
-                          </svg>{" "}
-                          Add a card
-                        </div>
-                        <button
-                          className="lists__menu-btn dots-color"
-                          onClick={() =>
-                            toggleMove
-                              ? this.setState({
-                                  toggleMove: !this.state.toggleMove,
-                                })
-                              : this.setState({
-                                  toggleCard: !this.state.toggleCard,
-                                })
-                          }
-                        >
-                          <svg
-                            style={{ marginRight: "5px" }}
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="1em"
-                            height="1em"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              fill="currentColor"
-                              d="M5 2h16v12h-2V4H5v16h8v2H3V2h2zm2 4h10v2H7V6zm10 4H7v2h10v-2zM7 14h7v2H7v-2zm13 5h3v2h-3v3h-2v-3h-3v-2h3v-3h2v3z"
-                            ></path>
-                          </svg>
-                        </button>
-                        {toggleCard && (
-                          <div className="lists__menu-dropdown1">
-                            <div className="lists__menu-title">
-                              <div className="flex">
-                                <p style={{ marginLeft: "4rem" }}>
-                                  Card templates
-                                </p>
-                                <div
-                                  tabIndex="0"
-                                  onClick={() => {
-                                    this.setState({
-                                      toggleCard: !this.state.toggleCard,
-                                    });
-                                  }}
-                                >
-                                  <i className="fa fa-close"></i>
-                                </div>
-                              </div>
-                              <hr></hr>
-                            </div>
-                            <div className="lists__menu-dropdown__options">
-                              <div style={{ textAlign: "center" }}>
-                                You don't have any templates. Create a template
-                                to make copying cards easy.
-                              </div>
-
-                              <div
-                                onClick={this.toggleAddingCard}
-                                className="btn1"
-                              >
-                                Create a new template
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )} */}
                 </div>
               )}
             </Droppable>
