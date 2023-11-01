@@ -30,7 +30,7 @@ class Card extends Component {
     hoverThumb: false,
     hoverThumb1: false,
     hoverName: false,
-    color: "white",
+    individualColor: this.props.globalBackgroundColor,
     vote: false,
     isOpen: true,
     export: false,
@@ -41,6 +41,10 @@ class Card extends Component {
 
 
   dropdownRef = React.createRef();
+  handleIndividualColorChange = (newColor) => {
+    //const newColor = '#00ff00'; // Set your desired individual color here
+    this.setState({ individualColor: newColor });
+  };
 
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
@@ -194,11 +198,17 @@ class Card extends Component {
               onMouseEnter={this.startHover}
               onMouseLeave={this.endHover}
             >
-              <p
-                style={{ backgroundColor: this.state.color, padding: "1em" }}
-              >
+                 <p
+          style={{
+          // backgroundColor: this.props.globalBackgroundColor,
+           backgroundColor: this.state.individualColor,
+            padding: '1em',
+          }}
+        >
                 {card?.text}
+            
               </p>
+
               <hr style={{ marginBottom: "2em", marginTop: "-1em" }} />
               <div className="lists__menu">
                 <div className="flex">
@@ -590,7 +600,8 @@ class Card extends Component {
                             borderRadius: "6px",
                           }}
                           onClick={() => {
-                            this.setState({ color: "#e8f0fd" })
+                            //this.setState({ color: "#e8f0fd" })
+                            this.handleIndividualColorChange("#e8f0fd")
                             toast.success('Success! Card updated successfully!'
                               , {
                                 position: toast.POSITION.BOTTOM_RIGHT,
@@ -607,7 +618,8 @@ class Card extends Component {
                             marginLeft: "0.5em",
                           }}
                           onClick={() => {
-                            this.setState({ color: "#f2f2fe" })
+                           // this.setState({ color: "#f2f2fe" })
+                           this.handleIndividualColorChange("#f2f2fe")
                             toast.success('Success! Card updated successfully!'
                               , {
                                 position: toast.POSITION.BOTTOM_RIGHT,
@@ -624,7 +636,8 @@ class Card extends Component {
                           }}
 
                           onClick={() => {
-                            this.setState({ color: "#f1f9e6" })
+                           // this.setState({ color: "#f1f9e6" })
+                            this.handleIndividualColorChange("#f1f9e6")
                             toast.success('Success! Card updated successfully!'
                               , {
                                 position: toast.POSITION.BOTTOM_RIGHT,
@@ -641,7 +654,8 @@ class Card extends Component {
                             marginLeft: "0.5em",
                           }}
                           onClick={() => {
-                            this.setState({ color: "#fcf1e3" })
+                          //  this.setState({ color: "#fcf1e3" })
+                          this.handleIndividualColorChange("#fcf1e3")
                             toast.success('Success! Card updated successfully!'
                               , {
                                 position: toast.POSITION.BOTTOM_RIGHT,
@@ -658,7 +672,8 @@ class Card extends Component {
                             marginLeft: "0.5em",
                           }}
                           onClick={() => {
-                            this.setState({ color: "#fdf3f1" })
+                         //   this.setState({ color: "#fdf3f1" })
+                         this.handleIndividualColorChange("#fdf3f1")
                             toast.success('Success! Card updated successfully!'
                               , {
                                 position: toast.POSITION.BOTTOM_RIGHT,
@@ -676,7 +691,8 @@ class Card extends Component {
                             marginLeft: "0.5em",
                           }}
                           onClick={() => {
-                            this.setState({ color: "#f8e9e6" })
+                           // this.setState({ color: "#f8e9e6" })
+                           this.handleIndividualColorChange("#f8e9e6")
                             toast.success('Success! Card updated successfully!'
                               , {
                                 position: toast.POSITION.BOTTOM_RIGHT,
@@ -693,7 +709,8 @@ class Card extends Component {
                             marginLeft: "0.5em",
                           }}
                           onClick={() => {
-                            this.setState({ color: "#dedef1" })
+                          //  this.setState({ color: "#dedef1" })
+                          this.handleIndividualColorChange("#f8e9f1")
                             toast.success('Success! Card updated successfully!'
                               , {
                                 position: toast.POSITION.BOTTOM_RIGHT,

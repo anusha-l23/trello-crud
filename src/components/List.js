@@ -21,9 +21,16 @@ class List extends Component {
     toggleCard: false,
     toggleCardTemp: false,
     togglePlus: false,
-    color: "white",
+   // color: "white",
+    globalColor: 'white'
   };
   dropdownRef = React.createRef();
+  handleGlobalColorChange = (newColor) => {
+    this.setState({ globalColor: newColor });
+    toast.success('Success! All Cards Updated Successfully!', {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+  };
 
  componentDidMount () {
   document.addEventListener("mousedown", this.handleClickOutSideList)
@@ -365,7 +372,7 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                             paddingRight: "9px",
                             borderRadius: "6px",
                           }}
-                          onClick={() => this.setState({ color: "#e8f0fd" })}
+                          onClick={() => this.handleGlobalColorChange('#e8f0fd')}
                         ></span>
                         <span
                           style={{
@@ -375,7 +382,8 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => this.setState({ color: "#f2f2fe" })}
+                      //    onClick={() => this.setState({ color: "#f2f2fe" })}
+                      onClick={() => this.handleGlobalColorChange('#f2f2fe')}
                         ></span>
                         <span
                           style={{
@@ -386,7 +394,8 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                             marginLeft: "0.5em",
                           }}
 
-                          onClick={() => this.setState({ color: "#f1f9e6" })}
+                        //  onClick={() => this.setState({ color: "#f1f9e6" })}
+                        onClick={() => this.handleGlobalColorChange('#f1f9e6')}
                         ></span>
                         <span
                           style={{
@@ -396,7 +405,8 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => this.setState({ color: "#fcf1e3" })}
+                         // onClick={() => this.setState({ color: "#fcf1e3" })}
+                          onClick={() => this.handleGlobalColorChange('#fcf1e3')}
                         ></span>
                         <span
                           style={{
@@ -406,8 +416,8 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => this.setState({ color: "#fdf3f1" })}
-
+                         // onClick={() => this.setState({ color: "#fdf3f1" })}
+                         onClick={() => this.handleGlobalColorChange('#fdf3f1')}
                         ></span>
                         <span
                           style={{
@@ -417,7 +427,8 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => this.setState({ color: "#f8e9e6" })}
+                         // onClick={() => this.setState({ color: "#f8e9e6" })}
+                         onClick={() => this.handleGlobalColorChange('#f8e9e6')}
                         ></span>
                         <span
                           style={{
@@ -427,7 +438,8 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                             borderRadius: "6px",
                             marginLeft: "0.5em",
                           }}
-                          onClick={() => this.setState({ color: "#dedef1" })}
+                        //  onClick={() => this.setState({ color: "#dedef1" })}
+                        onClick={() => this.handleGlobalColorChange('#dedef1')}
                         ></span>
                       </div>
                     </div>
@@ -449,16 +461,15 @@ if(this.dropdownRef.current && !this.dropdownRef.current.contains(event.target))
                 {provided.placeholder}
                   {list.cards &&
                     list.cards.map((cardId, index) => (
-                      <div
-                      style={{ backgroundColor: this.state.color}}
-                    >
+                   
                       <Card
                         key={cardId}
                         cardId={cardId}
                         index={index}
                         listId={list._id}
+                        globalBackgroundColor={this.state.globalColor}
                       />
-                 </div>
+             
                     ))}
 
               
