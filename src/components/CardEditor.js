@@ -3,7 +3,6 @@ import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import React, { Component } from "react";
 import EditButtons from "./EditButtons";
-import giphy from "../assets/giphy.gif";
 import { Picker } from 'emoji-mart';
 import axios from "axios";
 import 'emoji-mart/css/emoji-mart.css'
@@ -11,6 +10,7 @@ import CanvasDraw from 'react-canvas-draw';
 import { toPng } from 'dom-to-image';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Tooltip } from 'bootstrap';
+import backgroundImage from '../assets/color.jpg';
 class CardEditor extends Component {
   state = {
     text: this.props.text || "",
@@ -46,7 +46,7 @@ class CardEditor extends Component {
 
   backgroundImageUrl = '../assets/color-circle.png'
   containerStyle = {
-    backgroundImage: `url(${this.backgroundImageUrl})`,
+    backgroundImage: `url(${backgroundImage})`,
     backgroundRepeat: "no-repeat",
     width: "25px",
     height: "25px",
@@ -765,21 +765,35 @@ class CardEditor extends Component {
                     <div class="popups_colorPickerContainer__190uR">
                       <div><p>Color</p>
                         <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-                          <div style={{ borderRight: "3px solid silver" }}>
-                            <div style={this.containerStyle}>
+             
+                           <div style={{ borderRight: "3px solid silver" }}>
+                            {/* <div style={{  backgroundImage: `url(${backgroundImage})`,
+    backgroundRepeat: "no-repeat",
+    width: "50px",
+    height: "px",
+    cursor: "pointer"}}> 
+  
                               <input type="color" style={{ opacity: "0", cursor: "pointer" }}
                                 value={this.state.brushColor}
                                 onChange={this.handleColorChange} />
-                            </div>
-                          </div>
+                            </div> */}
+
+                            <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',width:"40px", height: "40px"}}>
+                            <input type="color" style={{ opacity: "0", cursor: "pointer" }}
+                                value={this.state.brushColor}
+                                onChange={this.handleColorChange} />
+    </div>
+                  
+</div>
                           <div class="popups_line__dMT9w"></div>
-                          <div class="popups_color__2gzuz" style={{ background: "rgb(243, 198, 140)", border: "2px solid transparent" }}></div>
+                          <div class="popups_color__2gzuz" style={{ background: "rgb(243, 198, 140)", border: "2px solid transparent" }} onClick={()=>this.setState({brushColor:this.state.brushColor})}></div>
                           <div class="popups_color__2gzuz" style={{ background: "rgb(143, 182, 245)", border: "2px solid transparent" }}></div>
                           <div class="popups_color__2gzuz" style={{ background: "rgb(241, 169, 155)", border: "2px solid transparent" }}></div>
                           <div class="popups_color__2gzuz" style={{ background: "rgb(198, 230, 153)", border: "2px solid transparent" }}></div>
                           <div class="popups_color__2gzuz" style={{ background: "rgb(150, 150, 247)", border: "2px solid transparent" }}></div>
                           <div class="popups_color__2gzuz" style={{ background: "rgb(157, 157, 213)", border: "2px solid transparent" }}></div>
-                          <div class="popups_color__2gzuz" style={{ background: "rgb(227, 167, 155)", border: "2px solid transparent" }}></div></div>
+                          <div class="popups_color__2gzuz" style={{ background: "rgb(227, 167, 155)", border: "2px solid transparent" }}></div>
+                          </div>
                         <div class="popups_colorBox__LstkM"></div></div></div>
                   </>
                 }
